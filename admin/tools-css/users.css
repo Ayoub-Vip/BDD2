@@ -1,0 +1,29 @@
+
+.user{
+/*	width: 600px;*/
+}
+.myusers{
+	width: 100%;
+	text-align: center;
+	border: 1px solid #ccc;
+}
+.tr1{
+	background: #ff7500;
+	color: aliceblue;
+	font-size: 19px;
+}
+.myusers th,td{
+	padding: 5px;
+}
+.myusers td{
+	border-right: 1px solid #ccc;border-bottom: 1px solid #ccc;
+}
+.delete{
+	border: none;padding: 4px 5px;background: red;color: aliceblue;cursor: pointer;border-radius: 1px;text-decoration: none;font-size: 13px;
+}
+.add{
+	border: none;background: #5114d9;color: aliceblue;cursor: pointer;border-radius: 1px;text-align: center;text-decoration: none;font-size: 13px;padding: 3px 4px;
+}
+.add :hover{
+	border: 1px solid #4d4a4a;padding: 5px;
+}

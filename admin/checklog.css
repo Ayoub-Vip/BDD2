@@ -1,0 +1,23 @@
+.wan,wann{
+    background: #ef4949;
+    border: 0.8px solid #db0505;
+    color: aliceblue;
+    font-family: fantasy;
+    font-size: 29px;
+    width: 79%;margin: auto;height: auto;padding:13px;
+    
+}
+.wan h6{
+    text-decoration: underline;
+    color: #ccc;
+    font-size: small;
+    
+}
+.done{
+    background: #78e290;
+    border: 0.8px solid #2fdb10;
+    color: aliceblue;
+    font-family: fantasy;
+    font-size: 29px;
+    width: 70%;margin: auto;height: auto;padding:13px;text-align: center;
+}

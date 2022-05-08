@@ -1,0 +1,62 @@
+.welcome{
+	
+	text-align: center;
+	color: aliceblue;
+	background: #20d736;
+	padding: 1px;
+	margin-bottom: 5px;
+}
+.nevpanel{
+	background: #7804ec;
+	width: 98.7%;
+	direction: rtl;
+	position: fixed;
+	border: 1px solid #0c0ca8;
+	height: 78px;
+}
+.nevpanel th{
+	
+}
+.nevpanel td{
+	margin-right: 22px;
+	padding: 11px;
+	font-size: 23px;
+	text-align: center;
+}
+.nevpanel td a{
+	text-decoration: none;
+	color: aliceblue;
+	text-shadow: 3px 3px 43px white;
+}
+.nevpanel td:hover{
+	background: rgba(32, 229, 255, 0.61);
+	text-shadow: 1px 1px 0 #c9bdbd;
+	cursor: pointer;
+}
+.includes{
+	border: 1px solid #ccc;
+	margin-top: 89px;
+	width: 100%;
+	height: -moz-max-content;
+	padding: 2px 4px;
+	width: 100%;
+	
+}
+.all{
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

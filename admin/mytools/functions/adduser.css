@@ -1,0 +1,21 @@
+.adduser{
+	padding: 14px;
+    border: 1px solid #ccc;
+	width: 79%;
+}
+
+.adduser input{
+	
+	border: none;
+	border-bottom: 0.007em solid #3838ed;
+}
+.myinput{
+	
+}
+.myblue{
+	
+	color: aliceblue;
+	background: #3467e1;
+	text-align: center;
+	padding: 6px;
+}

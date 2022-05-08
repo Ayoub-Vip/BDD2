@@ -1,0 +1,46 @@
+.header{
+    background: #59cc8a;
+    height: 155px;
+}
+.search{
+    text-align: left;
+}
+.myput{
+    background: #2f2ab5;
+    border: none;
+    font-size: 17px;
+    color: aliceblue;
+    margin: 9px;
+}
+.myput:hover{
+    background: rgba(90, 70, 196, 0.77);
+}
+.nev{
+    width: 100%;
+    height:40px;
+    margin-top: -15;
+    text-align: center;
+    background: #420280;
+}
+.po a{
+    text-decoration: none;
+    color: aliceblue ;
+}
+.po{
+    list-style-type: none;
+}
+.po li{
+    float: right;
+    position: relative;
+    margin-right: 19px;
+    padding: 3px 3px 3px;
+    font-size: 25px;
+    
+
+}
+.po li:hover{
+    font-size: 29px;
+    background: rgba(179, 164, 193, 0.72);
+    padding: 2.8px;
+    
+}
