@@ -11,7 +11,7 @@
 <head>
     <title>Admin Manager</title>
 	<link rel="stylesheet" href="tools-css/adminpage.css" type="text/css">
-	    <link rel="stylesheet" href="tools-css/adminpage1.css" type="text/css">
+	    <!-- <link rel="stylesheet" href="tools-css/adminpage1.css" type="text/css"> -->
     <meta charset="utf-8"/>
 
 </head>
@@ -45,15 +45,15 @@
 	</div>
 <table class="nevpanel">
 <tr>
-	<td><a href="admin_page.php?foc=projet" target="includes">projet</a></td>
-	<td><a href="admin_page.php?foc=employe" >employe</a></td>
-	<td><a href="admin_page.php?foc=tache" >tache</a></td>
-	<td><a href="admin_page.php?foc=fonction" >FONCTION</a></td>
-	<td><a href="admin_page.php?foc=rapport" >RAPPORT</a></td>
-	<td><a href="admin_page.php?foc=evaluation" >evaluation</a></td>
-	<td><a href="admin_page.php?foc=departement" >departement</a></td>
-	<td><a href="admin_page.php?foc=users" >users</a></td>
-	<td><a href="admin_page.php?foc=logout" >logout</a></td>
+	<td><a href="admin_page.php?table=projet" target="includes">projet</a></td>
+	<td><a href="admin_page.php?table=employe" >employe</a></td>
+	<td><a href="admin_page.php?table=tache" >tache</a></td>
+	<td><a href="admin_page.php?table=fonction" >fonction</a></td>
+	<td><a href="admin_page.php?table=rapport" >rapport</a></td>
+	<td><a href="admin_page.php?table=evaluation" >evaluation</a></td>
+	<td><a href="admin_page.php?table=departement" >departement</a></td>
+	<td><a href="admin_page.php?table=users" >users</a></td>
+	<td><a href="admin_page.php?table=logout" >logout</a></td>
 	</tr>	
 </table>
 	
@@ -61,35 +61,37 @@
 	
 	<?php
 	include_once("mytools/config.php");
-	if(isset($_GET['foc'])){
+	if(isset($_GET['table'])){
 		
-		switch ($_GET['foc']) {
-	case "main":
-		include_once("mytools/main.php");
+		switch ($_GET['table']) {
+	case "projet":
+		include_once("mytools/functions/projet.php");
 		break;
-	case 'add':
-		include_once("mytools/addons.php");
+	case 'employe':
+		include_once("mytools/functions/employe.php");
 		break;
-	case 'message';
-		include_once('mytools/messages.php');
+	case 'tache';
+		include_once('mytools/functions/tache.php');
 		break;
-   case 'repair':
-		include_once("mytools/repair.php");
+   case 'fonction':
+		include_once("mytools/functions/fonction.php");
 		break;
-	case 'stattings':
-		include_once("mytools/stattings.php");
+	case 'rapport':
+		include_once("mytools/functions/rapport.php");
 		break;
-	case 'support':
-		include_once("mytools/support.php");
+	case 'evaluation':
+		include_once("mytools/functions/evaluation.php");
 		break;
-	case 'themes':
-		include_once("mytools/themes.php");
+	case 'departement':
+		include_once("mytools/functions/departement.php");
 		break;
 	case 'users':
 		include_once("mytools/users.php");
+	case 'logout':
+		include_once("mytools/logout.php");
 		break;
 			default:
-				include_once("mytools/main.php");
+				include_once("mytools/projet.php");
 				
 }
 	}

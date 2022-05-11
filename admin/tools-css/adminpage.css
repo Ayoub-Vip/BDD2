@@ -8,8 +8,7 @@
 }
 .nevpanel{
 	background: #7804ec;
-	width: 98.7%;
-	direction: rtl;
+	width: 98%;
 	position: fixed;
 	border: 1px solid #0c0ca8;
 	height: 78px;
@@ -46,8 +45,39 @@
 	
 }
 
+.includes > form {
+  display: flex;
+  flex-wrap: wrap;
+  /*background-color: DodgerBlue;*/
+}
 
+.includes > form > input {
+  /*background-color: #f1f1f1;*/
+  width: 20%;
+  margin: 1%;
 
+}
+.includes > table {
+  width:100%;
+}
+.includes > table, th, td {
+  border:  0px 0px 1px 1px  solid black;
+  border-collapse: collapse;
+}
+.includes > th, td {
+  padding: 5px;
+  text-align: center;
+}
+table.datatable tr:nth-child(even) {
+  background-color: #eee;
+}
+table.datatable tr:nth-child(odd) {
+  background-color:#fff;
+}
+table.datatable th {
+  background-color: black;
+  color: white
+}
 
 
 
