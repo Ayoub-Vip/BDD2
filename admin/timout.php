@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="checklog.css" type="text/css">
     </head>
     <div class="wan">
-        <img src="us-feature-hack-icon-new.jpg" width="160" height="150" style="float:right">
+        <img src="../images/us-feature-hack-icon-new.jpg" width="160" height="150" style="float:right">
 <h2>you have do lot bof false in last </h2>
 <h3>please wite 20 minutes</h3>
         <h6>For security , we have get your ip and some information about you </h6>

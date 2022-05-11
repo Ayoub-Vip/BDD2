@@ -72,7 +72,7 @@ elseif($pass ="" || empty($pass)){
             $_SESSION['password']="pass";
 			/*$_SESSION['type']=;*/
 			$_SESSION['checklog']="checklog.php";
-                echo " <div class='done'><img style='float:RIGHT' src='us-feature-relaible-icon-new.jpg' width='155' heigh='155'><p>done ! ,YOU enter a valid data ;) <h5>we will go to last page</h5></p></div>";
+                echo " <div class='done'><img style='float:RIGHT' src='../images/us-feature-relaible-icon-new.jpg' width='155' heigh='155'><p>done ! ,YOU enter a valid data ;) <h5>we will go to last page</h5></p></div>";
                 //$last_update=mysqli_query($connect,"SELECT last_present from user");
                 //update_time=mysqli_query($connect,"UPDATE user set last_present ='' ")
                 
