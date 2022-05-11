@@ -8,7 +8,7 @@ if(isset($_SESSION['falses'])){
     } 
 }
 ?>    <!--    he php code   -->
-    <link rel="stylesheet" href="checklog.css" type="text/css" />
+    <link rel="stylesheet" href="tools-css/checklog.css" type="text/css" />
     <?php
 
  //   $date=gmdate("h:i:s d-m-Y");

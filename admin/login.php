@@ -3,9 +3,9 @@
 <html>
 <head>
     <title>WELCOME TO YOU</title>
-    <link rel="stylesheet" type="text/css" href="login.css">
+    <link rel="stylesheet" type="text/css" href="tools-css/login.css">
     </head>
-<body dir="">
+<body>
 <!--	hello    -->
 <?php 
 if(isset($_SESSION['username']) && isset($_SESSION['password']) ){
@@ -26,7 +26,7 @@ if(isset($_SESSION['falses'])){
     <input type="text" name="user" class="txt" /><br>
         <label for="pass" class="bel">password  </label><br>
     <input type="password" name="pass" class="txt" /><br>
-    <input type="submit" name="sub_log" class="myput" value="login now !"/>
+    <input type="submit" name="sub_log" class="myput" value="login now"/>
     </form>
         
     </div>

@@ -1,1 +1,0 @@
-<div class="bio"></div>

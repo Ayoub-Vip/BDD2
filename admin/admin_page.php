@@ -10,8 +10,8 @@
 <html>
 <head>
     <title>Admin Manager</title>
-	<link rel="stylesheet" href="adminpage.css" type="text/css">
-	    <link rel="stylesheet" href="adminpage1.css" type="text/css">
+	<link rel="stylesheet" href="tools-css/adminpage.css" type="text/css">
+	    <link rel="stylesheet" href="tools-css/adminpage1.css" type="text/css">
     <meta charset="utf-8"/>
 
 </head>
@@ -45,15 +45,14 @@
 	</div>
 <table class="nevpanel">
 <tr>
-	<td><a href="admin_page.php?foc=main" target="includes">main</a></td>
+	<td><a href="admin_page.php?foc=projet" target="includes">projet</a></td>
+	<td><a href="admin_page.php?foc=employe" >employe</a></td>
+	<td><a href="admin_page.php?foc=tache" >tache</a></td>
+	<td><a href="admin_page.php?foc=fonction" >FONCTION</a></td>
+	<td><a href="admin_page.php?foc=rapport" >RAPPORT</a></td>
+	<td><a href="admin_page.php?foc=evaluation" >evaluation</a></td>
+	<td><a href="admin_page.php?foc=departement" >departement</a></td>
 	<td><a href="admin_page.php?foc=users" >users</a></td>
-	<td><a href="admin_page.php?foc=ads" >ADS</a></td>
-	<td><a href="admin_page.php?foc=stattings" >General statting</a></td>
-	<td><a href="admin_page.php?foc=repair" >repair your tibles</a></td>
-	<td><a href="admin_page.php?foc=add" >addons</a></td>
-	<td><a href="admin_page.php?foc=themes" >themes</a></td>
-	<td><a href="admin_page.php?foc=messages" >messages</a></td>
-	<td><a href="admin_page.php?foc=support" >support blog</a></td>
 	<td><a href="admin_page.php?foc=logout" >logout</a></td>
 	</tr>	
 </table>
