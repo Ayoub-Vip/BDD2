@@ -13,11 +13,6 @@
 </form>
 
 
-
-
-
-
-
 <?PHP
 
 if($_POST['display_PROJET']){
@@ -29,19 +24,23 @@ if($_POST['display_PROJET']){
     $COUT=htmlspecialchars($_POST['COUT']);
     $DATE_FIN=htmlspecialchars($_POST['DATE_FIN']);
     $check=true;
-    echo $DATE_FIN."inside if while";
 
     if($check){
-        $req = $bdd->query("SELECT * FROM PROJET WHERE NOM LIKE '%".$NOM."%' OR DEPARTEMENT LIKE '%".$DEPARTEMENT."%' OR 
-            CHEF LIKE '%".$CHEF."%' OR BUDGET = '".$BUDGET."' OR DATE_DEBUT = '".$DATE_DEBUT."' OR COUT = '".$COUT."' OR DATE_FIN ='".$DATE_FIN."'  ");
+        $request = "SELECT * FROM PROJET WHERE NOM LIKE UPPER('%$NOM%') AND DEPARTEMENT LIKE UPPER('%$DEPARTEMENT%')";
+        if(strlen($CHEF) != 0)
+            $request .= " AND CHEF = $CHEF";
+        if(strlen($BUDGET) != 0)
+            $request .= " AND BUDGET = $BUDGET";
+        if(strlen($DATE_DEBUT) != 0)
+            $request .= " AND DATE_DEBUT = $DATE_DEBUT";
+        if(strlen($COUT) != 0)
+            $request .= " AND COUT = $COUT";
+        if(strlen($DATE_FIN) != 0)
+            $request .= " AND DATE_FIN = $DATE_FIN";
+        $req = $bdd->query($request);
 
 
-
-        echo "<h5>INSERT INTO  PROJET VALUES  NOM LIKE '%".$NOM."%' OR DEPARTEMENT LIKE '%".$DEPARTEMENT."%' OR 
-            CHEF LIKE '%".$CHEF."%' OR BUDGET = '".$BUDGET."' OR DATE_DEBUT = '".$DATE_DEBUT."' OR COUT = '".$COUT."' OR DATE_FIN ='".$DATE_FIN."' </h5> ";
-
-
-        echo '<h2>list of projects in database</h2>';
+        echo '<h2>List of projects in database</h2>';
         echo "<table class=\"datatable\">
         <tr><th>NOM</th><th>DEPARTEMENT</th><th>DATE_DEBUT</th><th>CHEF</th><th>BUDGET</th><th>COUT</th><th>DATE_FIN</th></tr>";
         while ($tuple = $req->fetch()) {
@@ -53,7 +52,7 @@ if($_POST['display_PROJET']){
 
     }
 }
-                          ?>
+?>
 
 
 
