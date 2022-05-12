@@ -32,7 +32,6 @@
 .nevpanel td{
 	margin-right: 22px;
 	font-size: 23px;
-	border-bottom: 3px solid #d000e1;
 	text-align: center;
 }
 .nevpanel td a{
@@ -95,26 +94,30 @@
   border-collapse: collapse;
 	padding: 4px 15px;
 	font-family: fantasy;
+
 }
-.includes > th{
-	font-family: 'abel'!important;
-}
-.includes > th, .includes > td {
+
+/*.includes > th, .includes > td {
   padding: 5px;
   text-align: center;
-}
-table.datatable tr:nth-child(even) {
+}*/
+.datatable tr:nth-child(even) {
   background-color: #eee;
 }
-table.datatable tr:nth-child(odd) {
+.datatable tr:nth-child(odd) {
   background-color:#fff;
 }
 
-table.datatable th {
+.datatable th {
   background-color: black;
   color: white
 }
-
+.container-table{
+	width: 90%;
+	height: 100px;
+	margin: auto;
+	overflow: auto;
+}
 
 
 
