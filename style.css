@@ -50,7 +50,7 @@ nav a:hover{
 }
 /*////////////////HEADER///////////////////////*/
 header{
-    background-image: url(vars/pexels-photo-753554_edited.jpg) ;background-repeat: no-repeat;background-size:100% 100%;color: white;height: 100vh;background-attachment: fixed;position: relative;font-family: 
+    background-image: url(images/pexels-photo-753554_edited.jpg) ;background-repeat: no-repeat;background-size:100% 100%;color: white;height: 100vh;background-attachment: fixed;position: relative;font-family: 
 }
 
 .centerd-header {

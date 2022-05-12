@@ -41,11 +41,11 @@
 <body>
 	<div class="all">
 <div class="welcome">
-<h4>Welcome to the control panel of admin ,you can fix all statting of your   WEB SITE</h4>
+<h4>Welcome to the control panel ,a scpace where you manage your business.</h4>
 	</div>
 <table class="nevpanel">
 <tr>
-	<td><a href="admin_page.php?table=projet" target="includes">projet</a></td>
+	<td><a href="admin_page.php?table=projet">projet</a></td>
 	<td><a href="admin_page.php?table=employe" >employe</a></td>
 	<td><a href="admin_page.php?table=tache" >tache</a></td>
 	<td><a href="admin_page.php?table=fonction" >fonction</a></td>

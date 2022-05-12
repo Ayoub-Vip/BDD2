@@ -12,7 +12,6 @@
 
 </form>
 
-
 <?PHP
 
 if($_POST['display_PROJET']){
@@ -39,6 +38,8 @@ if($_POST['display_PROJET']){
             $request .= " AND DATE_FIN = $DATE_FIN";
         $req = $bdd->query($request);
 
+        echo $request;
+
 
         echo '<h2>List of projects in database</h2>';
         echo "<table class=\"datatable\">
@@ -54,8 +55,8 @@ if($_POST['display_PROJET']){
 }
 ?>
 
-
-
+<br>
+<hr>
 <h1>INSERT DATA</h1>
 
 <form action="<?PHP echo $PHP_SELF; ?>" method="post">
@@ -66,7 +67,7 @@ if($_POST['display_PROJET']){
     <input placeholder="BUDGET"type="number" name="BUDGET">
     <input placeholder="COUT" type="number" name="COUT">
     <input placeholder="DATE_FIN" type="date" name="DATE_FIN" title="DATE_FIN">
-    <input type="submit" name="INSERT_PROJET" class="myput" value="fetch"/>
+    <input type="submit" name="INSERT_PROJET" class="myput" value="insert"/>
 
 </form>
 
@@ -81,7 +82,7 @@ if($_POST['INSERT_PROJET']){
     $COUT=htmlspecialchars($_POST['COUT']);
     $DATE_FIN=htmlspecialchars($_POST['DATE_FIN']);
     $check=true;
-    echo $DATE_FIN."inside if while";
+    
 
     if($check){
         $req = $bdd->query("INSERT INTO  PROJET VALUES  NOM LIKE '%".$NOM."%' OR DEPARTEMENT LIKE '%".$DEPARTEMENT."%' OR 

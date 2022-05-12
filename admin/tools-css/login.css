@@ -15,7 +15,7 @@
     margin: auto;
     margin-top: 50px;
     height: 500px;
-    background: url(../images/us.jpg)no-repeat left;
+    background: url(../../images/us.jpg)no-repeat right;
 }
 .txt{
     
@@ -34,9 +34,8 @@
     padding: 10px 102px;
     border: 0.7px solid #d53c3c;
     margin: 33px;
-    color: aliceblue;
-    font-size: 19px;
-    text-shadow: 1px 1px 1px #ccc;
+    color: white;
+    font-size: 20px;
     border-radius: 3px;
     margin-right: 150px;
     

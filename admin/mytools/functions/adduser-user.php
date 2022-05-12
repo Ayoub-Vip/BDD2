@@ -20,9 +20,9 @@ if($_POST['insert']){
 		$check=false;
 	}
 	if($check){
-		$mydb="admin";
+
 include_once("../config.php");
-mysqli_query($connect,"INSERT into user(name,email,password,bio,type) VALUES('$name','$email','$pass','$bio','$type') ");
+$bdd->query($connect,"INSERT into user(name,email,password,bio,type) VALUES('$name','$email','$pass','$bio','$type') ");
 		echo '<h2>you have create a new user ,<b>good job ;D</b></h2>';
 		
 
