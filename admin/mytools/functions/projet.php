@@ -36,6 +36,7 @@ if($_POST['display_PROJET']){
             $request .= " AND COUT = $COUT";
         if(strlen($DATE_FIN) != 0)
             $request .= " AND DATE_FIN = $DATE_FIN";
+
         $req = $bdd->query($request);
 
         echo $request;
@@ -63,6 +64,19 @@ if($_POST['display_PROJET']){
     <input id="search" placeholder="NOM" type="text" name="NOM">
     <input placeholder="DEPARTEMENT" type="text" name="DEPARTEMENT">
     <input placeholder="CHEF" type="text" name="CHEF">
+    <select>
+        <option value="">--Please choose an exiting CHEF--</option>
+        <?PHP 
+        
+        $fetch_chef = $bdd->query("SELECT * FROM EMPLOYE WHERE NOM_DEPARTEMENT IS NOT NULL AND NOM_FONCTION IS NOT NULL");
+        echo "query good <option value=\"dog\">Dog</option>";
+//
+        while ($row = $fetch_chef->fetch()) {
+            echo "<option value=\"".$row['NO']."\">".$row['NOM']."</option>";
+        }
+
+         ?>
+    </select>
     <input placeholder="DATE_DEBUT" type="date" name="DATE_DEBUT" title="DATE_DEBUT">
     <input placeholder="BUDGET"type="number" name="BUDGET">
     <input placeholder="COUT" type="number" name="COUT">
@@ -85,8 +99,7 @@ if($_POST['INSERT_PROJET']){
     
 
     if($check){
-        $req = $bdd->query("INSERT INTO  PROJET VALUES  NOM LIKE '%".$NOM."%' OR DEPARTEMENT LIKE '%".$DEPARTEMENT."%' OR 
-            CHEF LIKE '%".$CHEF."%' OR BUDGET = '".$BUDGET."' OR DATE_DEBUT = '".$DATE_DEBUT."' OR COUT = '".$COUT."' OR DATE_FIN ='".$DATE_FIN."'  ");
+        $req = $bdd->query("INSERT INTO  PROJET( NOM DEPARTEMENT CHEF BUDGET DATE_DEBUT COUT DATE_FIN) VALUES  ('".$NOM."' ,'".$DEPARTEMENT."' ,'".$CHEF."' ,'".$BUDGET."' ,'".$DATE_DEBUT."' ,'".$COUT."' ,'".$DATE_FIN."') ");
 
         echo '<h2>list of projects in database</h2>';
         echo "<table class=\"datatable\">
