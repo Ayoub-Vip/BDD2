@@ -17,8 +17,8 @@ if($_POST['display_EMPLOYE']){
     $check=true;
 
     if($check){
+        echo(strlen($NOM_DEPARTEMENT));
         $request = "SELECT * FROM EMPLOYE WHERE NOM LIKE UPPER('%$NOM%')";
-
         if(strlen($NOM_DEPARTEMENT) > 0){
             $request .= "AND NOM_DEPARTEMENT LIKE UPPER('%$NOM_DEPARTEMENT%')";
         }
@@ -27,7 +27,6 @@ if($_POST['display_EMPLOYE']){
         }
         if(strlen($NO) != 0)
             $request .= " AND NO = $NO";
-        echo("Here = ".$request);
         $req = $bdd->query($request);
 
 
@@ -44,6 +43,140 @@ if($_POST['display_EMPLOYE']){
     }
 }
 ?>
+
+<!-- QUESTION 3 : ADD NEW EMPLOYE -->
+        <br>
+        <hr>
+        <h1>ADD NEW EMPLOYE</h1>
+        <form action="<?PHP echo $PHP_SELF; ?>" method="post">
+            <input placeholder="NO" type="number" name="NO"><br>
+            <input placeholder="NOM" type="text" name="NOM"><br>
+            <input placeholder="NOM_DEPARTEMENT" type="text" name="NOM_DEPARTEMENT"><br>
+            <input placeholder="NOM_FONCTION" type="text" name="NOM_FONCTION"><br>
+            <input type="submit" name="add_Employe" class="myput" value="Add Employe"/>
+            <form>
+
+                <?PHP
+                if($_POST['add_Employe']){                  //AJOUT EMPLOYE
+                    $NO=htmlspecialchars($_POST['NO']);
+                    $NOM=htmlspecialchars($_POST['NOM']);
+                    $NOM_DEPARTEMENT=htmlspecialchars($_POST['NOM_DEPARTEMENT']);
+                    $NOM_FONCTION=htmlspecialchars($_POST['NOM_FONCTION']);
+                    $check=true;
+                    if($check){
+                        if(strlen($NOM) != 0 and strlen($NOM_DEPARTEMENT) != 0 and strlen($NOM_FONCTION) == 0) {                        // -- Add employe -- //
+                            echo("da = ");
+                            $bdd->query("INSERT INTO `EMPLOYE`(`NO`, `NOM`, `NOM_DEPARTEMENT`, `NOM_FONCTION`) VALUES ($NO,'$NOM','$NOM_DEPARTEMENT',NULL)");
+                        }
+                        elseif(strlen($NOM) != 0 and strlen($NOM_DEPARTEMENT) == 0 and strlen($NOM_FONCTION) != 0){
+                            echo("di = ");
+                            $bdd->query("INSERT INTO `EMPLOYE`(`NO`, `NOM`, `NOM_DEPARTEMENT`, `NOM_FONCTION`) VALUES ($NO,'$NOM',NULL,'$NOM_FONCTION')");
+                        }
+                        elseif(strlen($NOM) != 0 and strlen($NOM_DEPARTEMENT) != 0 and strlen($NOM_FONCTION) != 0){
+                            echo("do = ");
+                            $bdd->query("INSERT INTO `EMPLOYE`(`NO`, `NOM`, `NOM_DEPARTEMENT`, `NOM_FONCTION`) VALUES ($NO,'$NOM','$NOM_DEPARTEMENT','$NOM_FONCTION')");
+                        }
+
+                    }
+                }
+                ?>
+
+
+                <!-- QUESTION 3: COMPLETE NOT COMPLETED EMPLOYE-->
+                <br>
+                <hr>
+                <h1>Complete Employe</h1>
+                <form action="<?PHP echo $PHP_SELF; ?>" method="post">
+                    <select name="EMPLOYE" required>
+                        <option value="">--Please choose an uncompleted employe--</option>
+                        <?PHP
+
+                        $fetch_employe = $bdd->query("SELECT * FROM EMPLOYE");
+
+                        while ($row = $fetch_employe->fetch()) {
+
+                            $name = $row['NOM'];
+
+                            $request = "SELECT NOM_DEPARTEMENT FROM EMPLOYE where NOM = '$name'";
+                            $fetch_nom_departement = $bdd->query($request);
+                            $col = $fetch_nom_departement->fetch();
+                            $nom_departement = $col['NOM_DEPARTEMENT'];
+
+
+                            $request = "SELECT NOM_FONCTION FROM EMPLOYE where NOM = '$name'";
+                            $fetch_nom_fonction = $bdd->query($request);
+                            $col = $fetch_nom_fonction->fetch();
+                            $nom_fonction = $col['NOM_FONCTION'];
+
+                            if(strlen($nom_fonction) == 0 or strlen($nom_departement) == 0){
+
+
+                                echo "<option value=".$name." style='background-color : #f00020 '>".$name."</option>";
+                            }
+                        }
+                        ?>
+                        <input type="submit" name="insert_Employe" class="myput" value="Select Employe"/>
+                </form>
+
+                <?PHP
+
+
+                if($_POST['insert_Employe']){
+
+                $EMPLOYE=htmlspecialchars($_POST['EMPLOYE']);
+                $NO=htmlspecialchars($_POST['NO']);
+                $NOM=htmlspecialchars($_POST['NOM']);
+                $NOM_DEPARTEMENT=htmlspecialchars($_POST['NOM_DEPARTEMENT']);
+                $NOM_FONCTION=htmlspecialchars($_POST['NOM_FONCTION']);
+                $check=true;
+
+                if($check){ ?>
+
+                <br>
+                <hr>
+                <h1>COMPLETE EMPLOYE</h1>
+                <form action="<?PHP echo $PHP_SELF; ?>" method="post">
+                    <input placeholder="NOM_DEPARTEMENT"type="text" name="NOM_DEPARTEMENT"><br>
+                    <input placeholder="NOM_FONCTION"type="text" name="NOM_FONCTION"><br>
+
+                    <?PHP
+                    echo "<input type = 'hidden' name = 'EMPLOYE' value = '$EMPLOYE'/>";
+                    ?>
+                    <input type="submit" name="modify_Employe" class="myput" value="Modify_Employe"/>
+                </form>
+
+
+<?PHP
+    }
+}
+
+if($_POST['modify_Employe']){
+    $EMPLOYE=htmlspecialchars($_POST['EMPLOYE']);
+    $NO=htmlspecialchars($_POST['NO']);
+    $NOM=htmlspecialchars($_POST['NOM']);
+    $NOM_DEPARTEMENT=htmlspecialchars($_POST['NOM_DEPARTEMENT']);
+    $NOM_FONCTION=htmlspecialchars($_POST['NOM_FONCTION']);
+    $check=true;
+
+    if($check){
+        // -- Add employe -- //
+        if(strlen($NOM_FONCTION) !=0){
+            $request="UPDATE `EMPLOYE` SET `NOM_FONCTION` = '$NOM_FONCTION' WHERE `NOM` = '$EMPLOYE'";
+            $bdd->query($request);
+        }
+
+        if(strlen($NOM_DEPARTEMENT) !=0) {
+
+            $request="UPDATE `EMPLOYE` SET `NOM_DEPARTEMENT` = '$NOM_DEPARTEMENT' WHERE `NOM` = '$EMPLOYE'";
+            $bdd->query($request);
+        }
+    }
+
+
+}
+
+?>
+
 
 <h1>Tableau de bord</h1>
     <form action="<?PHP echo $PHP_SELF; ?>" method="post">
@@ -77,7 +210,7 @@ if($_POST['display_EMPLOYE']){
 
     }
     else{
-            $request = "ALTER TABLE EMPLOYE ADD COLUMN SUM INT AFTER NOM_FONCTION";
+        $request = "ALTER TABLE EMPLOYE ADD COLUMN SUM INT AFTER NOM_FONCTION";
             $bdd->query($request);
             $request = "ALTER TABLE EMPLOYE ADD COLUMN AVG INT AFTER SUM";
             $bdd->query($request);

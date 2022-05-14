@@ -56,62 +56,66 @@ if($_POST['display_PROJET']){
 }
 ?>
 
-<br>
-<hr>
-<h1>INSERT DATA</h1>
 
-<form action="<?PHP echo $PHP_SELF; ?>" method="post">
-    <input id="search" placeholder="NOM" type="text" name="NOM">
-    <input placeholder="DEPARTEMENT" type="text" name="DEPARTEMENT">
-    <input placeholder="CHEF" type="text" name="CHEF">
-    <select>
-        <option value="">--Please choose an exiting CHEF--</option>
-        <?PHP 
-        
-        $fetch_chef = $bdd->query("SELECT * FROM EMPLOYE WHERE NOM_DEPARTEMENT IS NOT NULL AND NOM_FONCTION IS NOT NULL");
-        while ($row = $fetch_chef->fetch()) {
-            echo "<option value=\"".$row['NO']."\">".$row['NOM']."</option>";
-        }
+<!-- ADD PROJET  .?? ?-->
+                <br>
+                <hr>
+                <h1>ADD PROJET</h1>
 
-         ?>
-    </select>
-    <input placeholder="DATE_DEBUT" type="date" name="DATE_DEBUT" title="DATE_DEBUT">
-    <input placeholder="BUDGET"type="number" name="BUDGET">
-    <input placeholder="COUT" type="number" name="COUT">
-    <input placeholder="DATE_FIN" type="date" name="DATE_FIN" title="DATE_FIN">
-    <input type="submit" name="INSERT_PROJET" class="myput" value="insert"/>
+                <form action="<?PHP echo $PHP_SELF; ?>" method="post">
+                    <input id="search" placeholder="NOM" type="text" name="NOM">
+                    <input placeholder="DEPARTEMENT" type="text" name="DEPARTEMENT">
 
-</form>
+                    <select name="NO" required>
+                        <option value="">--Please choose an existing CHEF--</option>
+                        <?PHP
 
-<?PHP
+                        $fetch_chef= $bdd->query("SELECT NO FROM EMPLOYE WHERE nom_departement is not null and nom_fonction is not null");
 
-if($_POST['INSERT_PROJET']){
-    $NOM=htmlspecialchars($_POST['NOM']);  ////////////////////////////////////
-    $DEPARTEMENT=htmlspecialchars($_POST['DEPARTEMENT']);
-    $CHEF=htmlspecialchars($_POST['CHEF']);
-    $BUDGET=htmlspecialchars($_POST['BUDGET']);
-    $DATE_DEBUT=htmlspecialchars($_POST['DATE_DEBUT']);
-    $COUT=htmlspecialchars($_POST['COUT']);
-    $DATE_FIN=htmlspecialchars($_POST['DATE_FIN']);
-    $check=true;
-    
+                        while ($row = $fetch_chef->fetch()) {
+                            $NO = $row['NO'];
+                            echo "<option value=".$NO. " style='background-color : #00f034 '>" .$NO."</option>";
+                        }
+                        ?>
+                    </select>
+                    <input placeholder="DATE_DEBUT" type="date" name="DATE_DEBUT" title="DATE_DEBUT">
+                    <input placeholder="BUDGET"type="number" name="BUDGET">
+                    <input placeholder="COUT" type="number" name="COUT">
+                    <input placeholder="DATE_FIN" type="date" name="DATE_FIN" title="DATE_FIN">
+                    <input type="submit" name="INSERT_PROJET" class="myput" value="insert"/>
 
-    if($check){
-        $req = $bdd->query("INSERT INTO  PROJET( NOM DEPARTEMENT CHEF BUDGET DATE_DEBUT COUT DATE_FIN) VALUES  ('".$NOM."' ,'".$DEPARTEMENT."' ,'".$CHEF."' ,'".$BUDGET."' ,'".$DATE_DEBUT."' ,'".$COUT."' ,'".$DATE_FIN."') ");
+                </form>
 
-        echo '<h2>list of projects in database</h2>';
-        echo "<table class=\"datatable\">
-        <tr><th>NOM</th><th>DEPARTEMENT</th><th>DATE_DEBUT</th><th>CHEF</th><th>BUDGET</th><th>COUT</th><th>DATE_FIN</th></tr>";
-        while ($tuple = $req->fetch()) {
-            // code...
-            echo "<tr> <td>".$tuple['NOM']." </td><td>".$tuple['DEPARTEMENT']." </td><td>".$tuple['DATE_DEBUT']."</td><td> ".$tuple['CHEF']." </td><td>".$tuple['BUDGET']."</td><td> ".$tuple['COUT']." </td><td>".$tuple['DATE_FIN']."</td></tr> ";
-        }
-        echo "</table>";
-        
+                <!-- RECUPERER LE CHEF DANS LA LISTE DEROULANTE OK !-->
 
-    }
-}
-?>
+
+
+
+
+                <?PHP
+
+                if($_POST['INSERT_PROJET']){
+                    $NO=htmlspecialchars($_POST['NO']);
+                    $NOM=htmlspecialchars($_POST['NOM']);  ////////////////////////////////////
+                    $DEPARTEMENT=htmlspecialchars($_POST['DEPARTEMENT']);
+                    $BUDGET=htmlspecialchars($_POST['BUDGET']);
+                    $DATE_DEBUT=htmlspecialchars($_POST['DATE_DEBUT']);
+                    $COUT=htmlspecialchars($_POST['COUT']);
+                    $DATE_FIN=htmlspecialchars($_POST['DATE_FIN']);
+                    $check=true;
+
+
+                    if($check){
+                        if($NO != NULL and $NOM != NULL and  $DEPARTEMENT != NULL and  $BUDGET != NULL and $COUT != NULL) {
+                            $request = "INSERT INTO `PROJET`(`NOM`, `DEPARTEMENT`, `DATE_DEBUT`, `CHEF`, `BUDGET`, `COUT`, `DATE_FIN`) VALUES ('$NOM','$DEPARTEMENT', '$DATE_DEBUT' ,'$NO', $BUDGET, $COUT, '$DATE_FIN')";
+                            $bdd->query($request);
+                        }
+
+                    }
+                } ?>
+
+
+
 
 <br>
 <hr>
