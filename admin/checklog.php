@@ -33,7 +33,7 @@ elseif($pass ="" || empty($pass)){
             //check database
         
         try {
-				$connect=mysqli_connect("localhost","root","","group26");
+				$connect=mysqli_connect("localhost","group26","YecEAVIQ6v","group26");
 				$sql="SELECT * FROM LOGIN WHERE NOM = '".$user."' AND PASSWORD = '".$pass."'";
 				$query=mysqli_query($connect,$sql);
 			} catch (Exception $e) {
