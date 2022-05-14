@@ -26,7 +26,7 @@ if($_POST['display_rapport']){
         <tr><th>EMPLOYE</th><th>PROJET</th><th>TITRE</th></tr>";
         while ($tuple = $req->fetch()) {
             // code...
-            echo "<tr> <td>".$tuple['EMPLOYE']." </td><td>".$tuple['PROJET']." </td><td>TITRE</td>/tr> ";
+            echo "<tr> <td>".$tuple['EMPLOYE']." </td><td>".$tuple['PROJET']." </td><td>".$tuple['TITRE']." </td>/tr> ";
         }
         echo "</table>";
 
