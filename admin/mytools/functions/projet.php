@@ -181,31 +181,11 @@ if($_POST['DISPLAY_TASK']){
                     $STATUT = 'en attente';
                }else{
                     if(is_null($DATE_FIN)){
-                        /*
-                        $fetch_employe = $bdd->query("SELECT EMPLOYE FROM TACHE WHERE PROJET ='$NUM'");
-                             while ($raw = $fetch_employe->fetch()) {
-
-                                $EMPLOYE = $raw['EMPLOYE'];
-
-                                $request = "SELECT SUM(NOMBRE_HEURES) FROM TACHE WHERE EMPLOYE = $EMPLOYE AND PROJET = '$NUM'";
-
-                                $result = $bdd->query($request);
-                                $res = $result->fetch();
-
-                                $NOMBRE_HEURES = $res['NOMBRE_HEURES'];
-                                echo("bibi = ".$NOMBRE_HEURES);
-
-                                $request = "SELECT NOM_FONCTION FROM EMPLOYE WHERE EMPLOYE = $EMPLOYE";
-                                $result = $bdd->query($request);
-                                $res = $result->fetch();
-                                $NOM_FONCTION = $res['NOM_FONCTION'];
-
-                                $SUM = $SUM + $NOMBRE_HEURES*$NOM_FONCTION;
-                             }
-                        "SELECT SUM(NOMBRE_HEURES) FROM TACHE WHERE EMPLOYE = $EMPLOYE AND PROJET = '$NUM' * SELECT TAUX_HORAIRE FROM FONCTION WhERE NOM = (SELECT NOM_FONCTION FROM EMPLOYE WHERE NO = 8221)";
-                        $request = "UPDATE PROJET SET COUT = $SUM where NOM = '$NUM'";
-                        $bdd->query($request);*/
-                     $STATUT = 'en cours de route';
+                        $req = $bdd->query("UPDATE PROJET SET COUT =(SELECT sum(NOMBRE_HEURES * TAUX_HORAIRE) AS COUT_TACHE
+                            FROM TACHE, FONCTION, EMPLOYE
+                            WHERE TACHE.PROJET LIKE UPPER('$NUM') AND EMPLOYE.NO = TACHE.EMPLOYE AND EMPLOYE.NOM_FONCTION = FONCTION.NOM) WHERE NOM = '$NUM'");
+                        $bdd->query($req);
+                        $STATUT = 'en cours de route';
                      }
                      else{
                         $STATUT = 'terminé';
