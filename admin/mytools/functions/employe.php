@@ -17,14 +17,8 @@ if($_POST['display_EMPLOYE']){
     $check=true;
 
     if($check){
-        echo(strlen($NOM_DEPARTEMENT));
-        $request = "SELECT * FROM EMPLOYE WHERE NOM LIKE UPPER('%$NOM%')";
-        if(strlen($NOM_DEPARTEMENT) > 0){
-            $request .= "AND NOM_DEPARTEMENT LIKE UPPER('%$NOM_DEPARTEMENT%')";
-        }
-        if(strlen($NOM_FONCTION) > 0){
-            $request .= "AND NOM_FONCTION LIKE UPPER('%$NOM_FONCTION%')";
-        }
+        $request = "SELECT * FROM EMPLOYE WHERE NOM LIKE UPPER('%$NOM%') AND NOM_DEPARTEMENT LIKE UPPER('%$NOM_DEPARTEMENT%')
+        AND NOM_FONCTION LIKE UPPER('%$NOM_FONCTION%')";
         if(strlen($NO) != 0)
             $request .= " AND NO = $NO";
         $req = $bdd->query($request);
@@ -43,3 +37,4 @@ if($_POST['display_EMPLOYE']){
     }
 }
 ?>
+
