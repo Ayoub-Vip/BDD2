@@ -179,7 +179,6 @@ if($_POST['DISPLAY_TASK']){
 
 <!-- Tableau de bord -->
 <h1>Tableau de bord</h1>
-
 <?PHP
 
 $display_projet = "SELECT * FROM PROJET ORDER BY DATE_DEBUT,NOM ASC";
@@ -198,11 +197,11 @@ while ($tuple = $reqprojet->fetch()) {
         $COUT_ACTUEL = $tuple['COUT'];
     }else{
         $NOM = $tuple['NOM'];
-        // $requet_cout = "SELECT sum(NOMBRE_HEURES * TAUX_HORAIRE) AS COUT_TACHE
-        //                             FROM TACHE, FONCTION, EMPLOYE
-        //                             WHERE TACHE.PROJET = '$NOM'
-        //                             AND EMPLOYE.NO = TACHE.EMPLOYE AND EMPLOYE.NOM_FONCTION = FONCTION.NOM";
-        // $COUT_ACTUEL = $bdd->query($requet_cout);
+        $requet_cout = "SELECT sum(NOMBRE_HEURES * TAUX_HORAIRE) AS COUT_TACHE
+                                    FROM TACHE, FONCTION, EMPLOYE
+                                    WHERE TACHE.PROJET = '$NOM'
+                                    AND EMPLOYE.NO = TACHE.EMPLOYE AND EMPLOYE.NOM_FONCTION = FONCTION.NOM";
+        $COUT_ACTUEL = $bdd->query($requet_cout);
     }
 
     if(is_null($BUDGET)){
@@ -224,5 +223,3 @@ while ($tuple = $reqprojet->fetch()) {
 }
 echo "</table>";
 ?>
-
-
