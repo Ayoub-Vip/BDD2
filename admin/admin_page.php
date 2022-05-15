@@ -11,33 +11,12 @@
 <head>
     <title>Admin Manager</title>
 	<link rel="stylesheet" href="tools-css/adminpage.css" type="text/css">
-	    <!-- <link rel="stylesheet" href="tools-css/adminpage1.css" type="text/css"> -->
+
     <meta charset="utf-8"/>
 
 </head>
 <script type="text/javascript" src="tools-css/jQuery.js"></script>
-  <script>
-    .$('temp').on('click',Function(){
-                $(this).toggleClass('temp clicked');
-//    $(getElemetbyClassname("gall")).toggleClass('gall active');
-                };)
-  </script>
 
-  <script>
-  	$(document).ready(function{
-  		$("#search").keyup(function() {
-  	  		// body...
-  	  		$.ajax({
-  	  			url:"functions/projet.php",
-  	  			type: 'post',
-  	  			data: {search: $(this).val()},
-  	  			success:function(result){
-  	  				$("#result").html(result);
-  	  			}
-  	  		});
-  	  	});
-  });
-  </script>
 <body>
 	<div class="all">
 <div class="welcome">

@@ -163,7 +163,7 @@ else{
  <!--  Formulaire pour ajouter des taches sur un projet(question 4)-->
 <br>
 <hr>
-<h1>Ajouter des tâches sur un projet</h1>
+<h1>Cloturer ou Ajouter des tâches sur un projet</h1>
 <form action="<?PHP echo $PHP_SELF; ?>" method="post">
     <select name="PROJET" required>
         <option value="">--Choisissez un projet--</option>
@@ -250,6 +250,12 @@ if($_POST['End_Project']){
     $EVALUATION=htmlspecialchars($_POST['EVALUATION']);
     $COMMENTAIRES=htmlspecialchars($_POST['COMMENTAIRES']);
     $check=true;
+
+    if($DATE_FIN < $bdd->query("SELECT DATE_DEBUT FROM PROJET WHERE NOM = '$PROJET'")->fetch()[0]){
+        echo "Attention! la DATE_FIN < DATE_DEBUT";
+        exit(1);
+
+    }
 
     if($check){
         if(strlen($EVALUATION) == 0 and $EMPLOYE == 0 and strlen($COMMENTAIRES) == 0){
