@@ -1,5 +1,6 @@
-<h1>Rechercher un projet</h1>
 
+<!--  Formulaire pour rechercher un projet-->
+<h1>Rechercher un projet</h1>
 <form action="<?PHP echo $PHP_SELF; ?>" method="post">
     <input id="search" placeholder="NOM" type="text" name="NOM">
     <input placeholder="DEPARTEMENT" type="text" name="DEPARTEMENT">
@@ -9,7 +10,6 @@
     <input placeholder="COUT" type="number" name="COUT">
     <input placeholder="DATE_FIN" type="date" name="DATE_FIN" title="DATE_FIN">
     <input type="submit" name="display_PROJET" class="myput" value="Rechercher"/>
-
 </form>
 
 <?PHP
