@@ -50,6 +50,7 @@
 	<td><a href="admin_page.php?table=tache" >tache</a></td>
 	<td><a href="admin_page.php?table=fonction" >fonction</a></td>
 	<td><a href="admin_page.php?table=rapport" >rapport</a></td>
+	<td><a href="admin_page.php?table=mots_cles" >mots cles</a></td>
 	<td><a href="admin_page.php?table=evaluation" >evaluation</a></td>
 	<td><a href="admin_page.php?table=departement" >departement</a></td>
 	<td><a href="admin_page.php?table=logout" >logout</a></td>
@@ -77,6 +78,9 @@
 		break;
 	case 'rapport':
 		include_once("mytools/functions/rapport.php");
+		break;
+	case 'mots_cles':
+		include_once("mytools/functions/mots_cles.php");
 		break;
 	case 'evaluation':
 		include_once("mytools/functions/evaluation.php");
