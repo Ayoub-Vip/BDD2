@@ -1,3 +1,4 @@
+ <!--  Formulaire pour rechercher une tache (question 1)-->
  <h1>Rechercher des tâches</h1>
  <form action="<?PHP echo $PHP_SELF; ?>" method="post">
     <input placeholder="EMPLOYE" type="number" name="EMPLOYE"><br>
@@ -6,6 +7,7 @@
     <input type="submit" name="display_TACHE" class="myput" value="Rechercher"/>
  </form>
 
+<!-- Affichage des taches en contraignant des paramètres (question 1)-->
 <?PHP
 
 if($_POST['display_TACHE']){
@@ -31,6 +33,7 @@ if($_POST['display_TACHE']){
 }
 ?>
 
+ <!--  Formulaire pour ajouter des taches sur un projet(question 4)-->
 <br>
 <hr>
 <h1>Ajouter des tâches sur un projet</h1>
@@ -79,8 +82,8 @@ if($_POST['display_TACHE']){
     <input type="submit" name="insert_Projet" class="myput" value="Choisir"/>
 </form>
 
+ <!--  Ajout et affichage des taches pour un employé (question 4)-->
 <?PHP
-
 if($_POST['insert_Projet']){
     $PROJET=htmlspecialchars($_POST['PROJET']);
 
@@ -183,8 +186,8 @@ if($_POST['insert_Projet']){
 }
 ?>
 
+ <!--  Mise à jour des taches et cloture du projet(question 4)-->
 <?PHP
-
 if($_POST['insert_EMPLOYEE']){
     $NOMBRE_HEURES=htmlspecialchars($_POST['NOMBRE_HEURES']);
     $EMPLOYE=htmlspecialchars($_POST['EXPERT']);
@@ -194,7 +197,7 @@ if($_POST['insert_EMPLOYEE']){
     if($check){
         echo($NOMBRE_HEURES);
         echo($PROJET);
-        $request = "UPDATE TACHE  SET NOMBRE_HEURES = NOMBRE_HEURES + $NOMBRE_HEURES where PROJET = '$PROJET' AND EMPLOYE = '$EMPLOYE'";
+        $request = "UPDATE TACHE SET NOMBRE_HEURES = NOMBRE_HEURES + $NOMBRE_HEURES where PROJET = '$PROJET' AND EMPLOYE = '$EMPLOYE'";
         echo($request);
         $bdd->query($request);
     }
@@ -233,7 +236,4 @@ if($_POST['End_Project']){
         }
     }
 }
- $fetch_budget = $bdd->query($request);
-                    $col = $fetch_budget->fetch();
-                    $budget = $col['BUDGET'];
 ?>

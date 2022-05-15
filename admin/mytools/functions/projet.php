@@ -1,5 +1,5 @@
 
-<!--  Formulaire pour rechercher un projet-->
+<!--  Formulaire pour rechercher un projet (question 1)-->
 <h1>Rechercher un projet</h1>
 <form action="<?PHP echo $PHP_SELF; ?>" method="post">
     <input id="search" placeholder="NOM" type="text" name="NOM">
@@ -13,7 +13,7 @@
 </form>
 
 
-<!--  Affichage des Projets-->
+<!-- Affichage des Projets en contraignant des paramètres (question 1)-->
 <?PHP
 if($_POST['display_PROJET']){
     $NOM=htmlspecialchars($_POST['NOM']);
@@ -24,32 +24,32 @@ if($_POST['display_PROJET']){
     $COUT=htmlspecialchars($_POST['COUT']);
     $DATE_FIN=htmlspecialchars($_POST['DATE_FIN']);
 
-        $request = "SELECT * FROM PROJET WHERE UPPER(NOM) LIKE UPPER('%$NOM%') AND UPPER(DEPARTEMENT) LIKE UPPER('%$DEPARTEMENT%')";
-        if(strlen($CHEF) != 0)
-            $request .= " AND CHEF = $CHEF";
-        if(strlen($BUDGET) != 0)
-            $request .= " AND BUDGET = $BUDGET";
-        if(strlen($DATE_DEBUT) != 0)
-            $request .= " AND DATE_DEBUT = '$DATE_DEBUT'";
-        if(strlen($COUT) != 0)
-            $request .= " AND COUT = $COUT";
-        if(strlen($DATE_FIN) != 0)
-            $request .= " AND DATE_FIN = '$DATE_FIN'";
+    $request = "SELECT * FROM PROJET WHERE UPPER(NOM) LIKE UPPER('%$NOM%') AND UPPER(DEPARTEMENT) LIKE UPPER('%$DEPARTEMENT%')";
+    if(strlen($CHEF) != 0)
+        $request .= " AND CHEF = $CHEF";
+    if(strlen($BUDGET) != 0)
+        $request .= " AND BUDGET = $BUDGET";
+    if(strlen($DATE_DEBUT) != 0)
+        $request .= " AND DATE_DEBUT = '$DATE_DEBUT'";
+    if(strlen($COUT) != 0)
+        $request .= " AND COUT = $COUT";
+    if(strlen($DATE_FIN) != 0)
+        $request .= " AND DATE_FIN = '$DATE_FIN'";
 
-        $req = $bdd->query($request);
-        echo '<h2>Liste des projets</h2>';
-        echo "<table class=\"datatable\">
-        <tr id=\"headtable\"><th>NOM</th><th>DEPARTEMENT</th><th>DATE_DEBUT</th><th>CHEF</th><th>BUDGET</th><th>COUT</th><th>DATE_FIN</th></tr>";
-        while ($tuple = $req->fetch()) {
+    $req = $bdd->query($request);
 
-            echo "<tr> <td>".$tuple['NOM']." </td><td>".$tuple['DEPARTEMENT']." </td><td>".$tuple['DATE_DEBUT']."</td><td> ".$tuple['CHEF']." </td><td>".$tuple['BUDGET']."</td><td> ".$tuple['COUT']." </td><td>".$tuple['DATE_FIN']."</td></tr> ";
-        }
-        echo "</table>";
+    echo '<h2>Liste des projets</h2>';
+    echo "<table class=\"datatable\">
+    <tr id=\"headtable\"><th>NOM</th><th>DEPARTEMENT</th><th>DATE_DEBUT</th><th>CHEF</th><th>BUDGET</th><th>COUT</th><th>DATE_FIN</th></tr>";
+    while ($tuple = $req->fetch()) {
+        echo "<tr> <td>".$tuple['NOM']." </td><td>".$tuple['DEPARTEMENT']." </td><td>".$tuple['DATE_DEBUT']."</td><td> ".$tuple['CHEF']." </td><td>".$tuple['BUDGET']."</td><td> ".$tuple['COUT']." </td><td>".$tuple['DATE_FIN']."</td></tr> ";
+    }
+    echo "</table>";
 }
 ?>
 
 
-<!-- Formulaire pour ajouter des Projets-->
+<!--Formulaire pour ajouter un projet (question 3)-->
 <br>
 <hr>
 <h1>Ajouter un projet</h1>
@@ -83,7 +83,7 @@ if($_POST['display_PROJET']){
         ?>
     </select>
     <input placeholder="DATE_DEBUT" type="date" name="DATE_DEBUT" title="DATE_DEBUT" required>
-    <input placeholder="BUDGET"type="number" name="BUDGET" required>
+    <input placeholder="BUDGET"type="number" name="BUDGET" >
     <input placeholder="COUT" type="number" name="COUT">
     <input placeholder="DATE_FIN" type="date" name="DATE_FIN" title="DATE_FIN">
     <input type="submit" name="INSERT_PROJET" class="myput" value="Ajouter"/>
@@ -91,51 +91,37 @@ if($_POST['display_PROJET']){
 </form>
 
 
-<!-- Insère le nouveau projet dans la base de données-->
+<!-- Insertion du nouveau projet dans la base de données (Question 3)-->
 <?PHP
 
 if($_POST['INSERT_PROJET']){
     $NO=htmlspecialchars($_POST['NO']);
-    $NOM=htmlspecialchars($_POST['NOM']);  ////////////////////////////////////
+    $NOM=htmlspecialchars($_POST['NOM']);
     $DEPARTEMENT=htmlspecialchars($_POST['DEPARTEMENT']);
     $BUDGET=htmlspecialchars($_POST['BUDGET']);
     $DATE_DEBUT=htmlspecialchars($_POST['DATE_DEBUT']);
     $COUT=htmlspecialchars($_POST['COUT']);
     $DATE_FIN=htmlspecialchars($_POST['DATE_FIN']);
-
-
-    if($NO != "DEFAULT" and $NOM != NULL and  $DEPARTEMENT != "DEFAULT" and  $BUDGET != NULL and $DATE_DEBUT != NULL) {
-        if($DATE_FIN != NULL){
-            if($COUT != NULL){
-                echo 1;
-                $request = "INSERT INTO `PROJET`(`NOM`, `DEPARTEMENT`, `DATE_DEBUT`, `CHEF`, `BUDGET`, `COUT`, `DATE_FIN`) VALUES ('$NOM','$DEPARTEMENT', '$DATE_DEBUT' ,'$NO', $BUDGET, $COUT, '$DATE_FIN')";
-                $bdd->query($request);
-                            }
-                            else {
-                                echo 2;
-                                $request = "INSERT INTO `PROJET`(`NOM`, `DEPARTEMENT`, `DATE_DEBUT`, `CHEF`, `BUDGET`, `COUT`, `DATE_FIN`) VALUES ('$NOM','$DEPARTEMENT', '$DATE_DEBUT' ,'$NO', $BUDGET, NULL, '$DATE_FIN')";
-                                $bdd->query($request);
-                            }
-                        }
-                        else {
-                            if ($COUT == NULL) {
-                                echo 3;
-                                $request = "INSERT INTO `PROJET`(`NOM`, `DEPARTEMENT`, `DATE_DEBUT`, `CHEF`, `BUDGET`, `COUT`, `DATE_FIN`) VALUES ('$NOM','$DEPARTEMENT', '$DATE_DEBUT' ,'$NO', $BUDGET, NULL, NULL)";
-                                $bdd->query($request);
-                            }
-                            else{
-                                echo("Erreur : Seul un projet fini peut avoir un coût.");
-                            }
-                        }
-                    }
-                    else{
-                        echo("Erreur : Nom, Département, Date Début, Chef et Budget requis.");
-                    }
-                } ?>
+    if(strlen($BUDGET) == 0)
+        $BUDGET = 'NULL';
+    if(strlen($COUT) == 0)
+        $COUT = 'NULL';
+    if($NO != "DEFAULT" and $NOM != NULL and  $DEPARTEMENT != "DEFAULT" and $DATE_DEBUT != NULL) {
+         if(strlen($DATE_FIN) == 0)
+            $request = "INSERT INTO `PROJET`(`NOM`, `DEPARTEMENT`, `DATE_DEBUT`, `CHEF`, `BUDGET`, `COUT`, `DATE_FIN`) VALUES ('$NOM','$DEPARTEMENT', '$DATE_DEBUT' ,'$NO', $BUDGET, $COUT, null)";
+         else
+            $request = "INSERT INTO `PROJET`(`NOM`, `DEPARTEMENT`, `DATE_DEBUT`, `CHEF`, `BUDGET`, `COUT`, `DATE_FIN`) VALUES ('$NOM','$DEPARTEMENT', '$DATE_DEBUT' ,'$NO', $BUDGET, $COUT, '$DATE_FIN')";
+         $bdd->query($request);
+         echo("req =".$request);
+    }
+    else{
+         echo("Erreur : Nom, Département, Date Début et Chef requis.");
+    }
+} ?>
 
 
 
-<!-- Formulaire pour choisir les taches à afficher-->
+<!-- Formulaire pour choisir les taches à afficher pour un projet(Question 2)-->
 <br>
 <hr>
 <h1>Affichage des tâches sur un projet</h1>
@@ -156,7 +142,7 @@ if($_POST['INSERT_PROJET']){
 </form>
 
 
-<!-- Affichage des taches -->
+<!-- Affichage des taches (Question 2)-->
 <?PHP
 if($_POST['DISPLAY_TASK']){
     $NOM=htmlspecialchars($_POST['NOM']);
@@ -175,7 +161,7 @@ if($_POST['DISPLAY_TASK']){
 
 ?>
 
-<!-- Tableau de bord -->
+<!-- Tableau de bord (Question 6)-->
 <h1>Tableau de bord</h1>
 <?PHP
 

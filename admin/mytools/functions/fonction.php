@@ -1,3 +1,5 @@
+
+<!-- Formulaire pour rechercher une Fonction (question 1)-->
 <h1>Rechercher une fonction</h1>
 <form action="<?PHP echo $PHP_SELF; ?>" method="post">
     <input placeholder="NOM" type="text" name="NOM"><br>
@@ -5,6 +7,7 @@
     <input type="submit" name="display_fonction" class="myput" value="Rechercher"/>
 </form>
 
+<!-- Affichage des fonctions en contraignants des paramètres (question 1) -->
 <?PHP
 if($_POST['display_fonction']){
     $NOM=htmlspecialchars($_POST['NOM']);
@@ -26,7 +29,8 @@ if($_POST['display_fonction']){
 }
 ?>
 
-<!-- QUESTION 3 : AJOUT FONCTION -->
+
+<!-- Formulaire pour ajouter des fonctions (question 3) -->
 <br>
 <hr>
 <h1>Ajouter une fonction</h1>
@@ -36,11 +40,12 @@ if($_POST['display_fonction']){
     <input type="submit" name="add_Fonction" class="myput" value="Ajouter"/>
 <form>
 
+<!-- Ajout de la fonctions dans la base de données -->
 <?PHP
-    if($_POST['add_Fonction']){                  //FONCTION
+    if($_POST['add_Fonction']){
         $NOM=htmlspecialchars($_POST['NOM']);
         $TAUX_HORAIRE=htmlspecialchars($_POST['TAUX_HORAIRE']);
-            if(strlen($NOM) != 0){   // -- Add fonction -- //
+            if(strlen($NOM) != 0){
                 if($TAUX_HORAIRE != NULL){
                     $bdd->query("INSERT INTO `FONCTION`(`NOM`, `TAUX_HORAIRE`) VALUES ('$NOM',$TAUX_HORAIRE)");
                 }

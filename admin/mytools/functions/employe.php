@@ -1,3 +1,4 @@
+ <!--  Formulaire pour rechercher un employé (question 1)-->
 <h1>Rechercher un employé</h1>
 <form action="<?PHP echo $PHP_SELF; ?>" method="post">
     <input placeholder="NO" type="number" name="NO"><br>
@@ -7,8 +8,8 @@
     <input type="submit" name="display_EMPLOYE" class="myput" value="Rechercher"/>
 </form>
 
+<!-- Affichage des employés en contraignant des paramètres (question 1)-->
 <?PHP
-
 if($_POST['display_EMPLOYE']){
     $NO=htmlspecialchars($_POST['NO']);  ////////////////////////////////////
     $NOM=htmlspecialchars($_POST['NOM']);
@@ -37,6 +38,7 @@ if($_POST['display_EMPLOYE']){
 ?>
 
 
+ <!--  Formulaire pour ajouter un employé (question 3)-->
 <br>
 <hr>
 <h1>Ajouter un employé</h1>
@@ -74,6 +76,7 @@ if($_POST['display_EMPLOYE']){
         <input type="submit" name="add_Employe" class="myput" value="Ajouter"/>
 </form>
 
+ <!--  Ajout de l'employé dans la base de données(question 3)-->
 <?php
 if($_POST['add_Employe']){
     $NOM_FONCTION_SELECT=htmlspecialchars($_POST['NOM_FONCTION_SELECT']);
@@ -103,13 +106,7 @@ if($_POST['add_Employe']){
 
 ?>
 
-
-
-
-
-
-
-<!-- QUESTION 3: COMPLETE NOT COMPLETED EMPLOYE-->
+ <!--  Formulaire pour compléter les informations d'un employé (question 3)-->
 <br>
 <hr>
 <h1>Compléter les informations d'un employé</h1>
@@ -127,14 +124,13 @@ if($_POST['add_Employe']){
             $name = $row['NOM'];
 
             echo "<option value=".$name." style='background-color : #f00000 '>".$name."</option>";
-
         }
         ?>
     <input type="submit" name="insert_Employe" class="myput" value="Choisir"/>
 </form>
 
+ <!-- Ajout de l'employé dans la base de données (question 3)-->
 <?PHP
-
 if($_POST['insert_Employe']){
     $EMPLOYE=htmlspecialchars($_POST['EMPLOYE']);
 
@@ -146,7 +142,6 @@ if($_POST['insert_Employe']){
     $col = $nom_fonct->fetch();
     $nom_fonct_fetch = $col['NOM_FONCTION'];
 
-
 ?>
     <br>
     <hr>
@@ -155,10 +150,8 @@ if($_POST['insert_Employe']){
         <?PHP
         if($nom_dep_fetch == NULL){
         ?>
-
             <select name="NOM_DEPARTEMENT">
                 <option value="DEFAULT">--Choisir un département--</option>
-
                 <?PHP
                 $fetch_departement2 = $bdd->query("SELECT NOM FROM DEPARTEMENT");
 
@@ -170,10 +163,8 @@ if($_POST['insert_Employe']){
                 echo "<input type = 'hidden' name = 'EMPLOYE' value = '$EMPLOYE'/>";
 
         }
-
         if($nom_fonct_fetch == NULL){
                 ?>
-
                 <select name="NOM_FONCTION">
                     <option value="DEFAULT">--Choisir une fonction--</option>
 
@@ -188,13 +179,10 @@ if($_POST['insert_Employe']){
                     echo "<input type = 'hidden' name = 'EMPLOYE' value = '$EMPLOYE'/>";
 
                     }
-
                 ?>
                 <input type="submit" name="modify_Employe" class="myput" value="Compléter"/>
         </form>
     <?PHP
-
-
 }
 
 if($_POST['modify_Employe']){
@@ -213,6 +201,7 @@ if($_POST['modify_Employe']){
 ?>
 
 
+<!-- Option de tri du tableau de bord des employés (question 7)-->
 <h1>Tableau de bord</h1>
     <form action="<?PHP echo $PHP_SELF; ?>" method="post">
     <select name="COLUMN">
@@ -232,6 +221,8 @@ if($_POST['modify_Employe']){
     <input type="submit" name="Display" class="myput" value="Trier"/>
 </form>
 
+
+<!-- Affichage du tableau de bord des employés (question 7)-->
 <?PHP
     if($_POST['Display']){
         $COLUMN=htmlspecialchars($_POST['COLUMN']);

@@ -1,3 +1,5 @@
+
+<!-- Formulaire pour rechercher des mots-clés (question 1)-->
 <h1>Rechercher les mots-clés</h1>
 <form action="<?PHP echo $PHP_SELF; ?>" method="post">
     <input placeholder="RAPPORT" type="text" name="RAPPORT"><br>
@@ -5,8 +7,9 @@
     <input type="submit" name="display_mots_cle" class="myput" value="Rechercher"/>
 </form>
 
-<?PHP
 
+<!-- Affichage des mots-clés en contraignant des paramètres (question 1)-->
+<?PHP
 if($_POST['display_mots_cle']){
     $RAPPORT=htmlspecialchars($_POST['RAPPORT']);
     $MOT_CLE=htmlspecialchars($_POST['MOTS_CLE']);
