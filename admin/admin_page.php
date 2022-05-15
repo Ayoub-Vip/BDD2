@@ -1,10 +1,10 @@
 
-<?php // session_start(); ?>
+<?php session_start(); ?>
 <? 
-/*if(!$_SESSION['checklog']){header("location:../login.php");}
-  //elseif(!isset($_SESSION['username']) && !isset($_SESSION['password'])){
-    //header("location:../login.php");
-  }*/
+if(!$_SESSION['checklog']){header("location:login.php");}
+  elseif(!isset($_SESSION['username']) && !isset($_SESSION['password'])){
+    header("location:login.php");
+  }
 ?>
 <!DOCTYPE html>
 <html>

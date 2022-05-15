@@ -144,10 +144,10 @@ if($_POST['insert_Projet'] or $_GET['projet']) {
                 }
                 else{
                     if($COUT > 1.1 * $BUDGET){
-                        $color = "#ff7f00";
+                        $color = "#f00020";
                     }
                     else{
-                        $color = "#f00020";
+                        $color = "#ff7f00 ";
                         }
                 }
             }
@@ -195,10 +195,10 @@ else{
                         }
                         else{
                             if($COUT > 1.1 * $BUDGET){
-                                echo "<option value=".$name." style='background-color : #ff7f00'>".$name."</option>";
+                                echo "<option value=".$name." style='background-color : #ff7f00 '>".$name."</option>";
                             }
                             else{
-                                echo "<option value=".$name." style='background-color : #f00020 '>".$name."</option>";
+                                echo "<option value=".$name." style='background-color : #f00020'>".$name."</option>";
                             }
                         }
                     }else{

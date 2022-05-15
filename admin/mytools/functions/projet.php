@@ -106,6 +106,11 @@ if($_POST['INSERT_PROJET']){
         $BUDGET = 'NULL';
     if(strlen($COUT) == 0)
         $COUT = 'NULL';
+    if(strlen($bdd->query("SELECT NOM FROM PROJET WHERE NOM = '$PROJET'")->fetch()[0]) != 0){
+        echo "Attention! ce projet existe deja dans la base de donnes";
+        exit(1);
+
+    }
     if($NO != "DEFAULT" and $NOM != NULL and  $DEPARTEMENT != "DEFAULT" and $DATE_DEBUT != NULL) {
          if(strlen($DATE_FIN) == 0)
             $request = "INSERT INTO `PROJET`(`NOM`, `DEPARTEMENT`, `DATE_DEBUT`, `CHEF`, `BUDGET`, `COUT`, `DATE_FIN`) VALUES ('$NOM','$DEPARTEMENT', '$DATE_DEBUT' ,'$NO', $BUDGET, $COUT, null)";
