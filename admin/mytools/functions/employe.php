@@ -1,10 +1,10 @@
-<h1>FETCH DATA</h1>
+<h1>Rechercher un employé</h1>
 <form action="<?PHP echo $PHP_SELF; ?>" method="post">
     <input placeholder="NO" type="number" name="NO"><br>
     <input placeholder="NOM" type="text" name="NOM"><br>
     <input placeholder="NOM_DEPARTEMENT" type="text" name="NOM_DEPARTEMENT"><br>
     <input placeholder="NOM_FONCTION" type="text" name="NOM_FONCTION"><br>
-    <input type="submit" name="display_EMPLOYE" class="myput" value="fetch"/>
+    <input type="submit" name="display_EMPLOYE" class="myput" value="Rechercher"/>
 </form>
 
 <?PHP
@@ -17,7 +17,6 @@ if($_POST['display_EMPLOYE']){
     $check=true;
 
     if($check){
-        echo(strlen($NOM_DEPARTEMENT));
         $request = "SELECT * FROM EMPLOYE WHERE NOM LIKE UPPER('%$NOM%')";
         if(strlen($NOM_DEPARTEMENT) > 0){
             $request .= "AND NOM_DEPARTEMENT LIKE UPPER('%$NOM_DEPARTEMENT%')";
@@ -30,11 +29,10 @@ if($_POST['display_EMPLOYE']){
         $req = $bdd->query($request);
 
 
-        echo '<h2>List of EMPLOYE in database</h2>';
+        echo '<h2>Liste des employés :</h2>';
         echo "<table class=\"datatable\">
         <tr><th>NO</th><th>NOM</th><th>NOM_DEPARTEMENT</th><th>NOM_FONCTION</th></tr>";
         while ($tuple = $req->fetch()) {
-            // code...
             echo "<tr> <td>".$tuple['NO']." </td><td>".$tuple['NOM']." </td><td>".$tuple['NOM_DEPARTEMENT']."</td><td> ".$tuple['NOM_FONCTION']." </td></tr> ";
         }
         echo "</table>";
@@ -44,136 +42,184 @@ if($_POST['display_EMPLOYE']){
 }
 ?>
 
-<!-- QUESTION 3 : ADD NEW EMPLOYE -->
-        <br>
-        <hr>
-        <h1>ADD NEW EMPLOYE</h1>
-        <form action="<?PHP echo $PHP_SELF; ?>" method="post">
-            <input placeholder="NO" type="number" name="NO"><br>
-            <input placeholder="NOM" type="text" name="NOM"><br>
-            <input placeholder="NOM_DEPARTEMENT" type="text" name="NOM_DEPARTEMENT"><br>
-            <input placeholder="NOM_FONCTION" type="text" name="NOM_FONCTION"><br>
-            <input type="submit" name="add_Employe" class="myput" value="Add Employe"/>
-            <form>
 
-                <?PHP
-                if($_POST['add_Employe']){                  //AJOUT EMPLOYE
-                    $NO=htmlspecialchars($_POST['NO']);
-                    $NOM=htmlspecialchars($_POST['NOM']);
-                    $NOM_DEPARTEMENT=htmlspecialchars($_POST['NOM_DEPARTEMENT']);
-                    $NOM_FONCTION=htmlspecialchars($_POST['NOM_FONCTION']);
-                    $check=true;
-                    if($check){
-                        if(strlen($NOM) != 0 and strlen($NOM_DEPARTEMENT) != 0 and strlen($NOM_FONCTION) == 0) {                        // -- Add employe -- //
-                            echo("da = ");
-                            $bdd->query("INSERT INTO `EMPLOYE`(`NO`, `NOM`, `NOM_DEPARTEMENT`, `NOM_FONCTION`) VALUES ($NO,'$NOM','$NOM_DEPARTEMENT',NULL)");
-                        }
-                        elseif(strlen($NOM) != 0 and strlen($NOM_DEPARTEMENT) == 0 and strlen($NOM_FONCTION) != 0){
-                            echo("di = ");
-                            $bdd->query("INSERT INTO `EMPLOYE`(`NO`, `NOM`, `NOM_DEPARTEMENT`, `NOM_FONCTION`) VALUES ($NO,'$NOM',NULL,'$NOM_FONCTION')");
-                        }
-                        elseif(strlen($NOM) != 0 and strlen($NOM_DEPARTEMENT) != 0 and strlen($NOM_FONCTION) != 0){
-                            echo("do = ");
-                            $bdd->query("INSERT INTO `EMPLOYE`(`NO`, `NOM`, `NOM_DEPARTEMENT`, `NOM_FONCTION`) VALUES ($NO,'$NOM','$NOM_DEPARTEMENT','$NOM_FONCTION')");
-                        }
+<br>
+<hr>
+<h1>Ajouter un employé</h1>
+<form action="<?PHP echo $PHP_SELF; ?>" method="post">
+    <input placeholder="NO" type="number" name="NO" required><br>
+    <input placeholder="NOM" type="text" name="NOM" required><br>
+    <select name="NOM_DEPARTEMENT_SELECT">
+        <option value="DEFAULT">--No Departement--</option>
+        <?PHP
 
-                    }
-                }
-                ?>
+        $fetch_departement = $bdd->query("SELECT NOM FROM DEPARTEMENT");
 
+        while ($row = $fetch_departement->fetch()) {
 
-                <!-- QUESTION 3: COMPLETE NOT COMPLETED EMPLOYE-->
-                <br>
-                <hr>
-                <h1>Complete Employe</h1>
-                <form action="<?PHP echo $PHP_SELF; ?>" method="post">
-                    <select name="EMPLOYE" required>
-                        <option value="">--Please choose an uncompleted employe--</option>
-                        <?PHP
+            $name = $row['NOM'];
+            echo "<option value=".$name. " style='background-color : #00f034 '>" .$name."</option>";
 
-                        $fetch_employe = $bdd->query("SELECT * FROM EMPLOYE");
+        }
+        ?>
 
-                        while ($row = $fetch_employe->fetch()) {
+    </select>
+    <select name="NOM_FONCTION_SELECT">
+        <option value="DEFAULT">--No Fonction--</option>
+            <?PHP
 
-                            $name = $row['NOM'];
+            $fetch_fonction = $bdd->query("SELECT NOM FROM FONCTION");
 
-                            $request = "SELECT NOM_DEPARTEMENT FROM EMPLOYE where NOM = '$name'";
-                            $fetch_nom_departement = $bdd->query($request);
-                            $col = $fetch_nom_departement->fetch();
-                            $nom_departement = $col['NOM_DEPARTEMENT'];
+            while ($row2 = $fetch_fonction->fetch()) {
 
+                $name2 = $row2['NOM'];
+                echo "<option value=".$name2. " style='background-color : #00f034 '>" .$name2."</option>";
 
-                            $request = "SELECT NOM_FONCTION FROM EMPLOYE where NOM = '$name'";
-                            $fetch_nom_fonction = $bdd->query($request);
-                            $col = $fetch_nom_fonction->fetch();
-                            $nom_fonction = $col['NOM_FONCTION'];
+            }
+            ?>
+        <input type="submit" name="add_Employe" class="myput" value="Ajouter"/>
+</form>
 
-                            if(strlen($nom_fonction) == 0 or strlen($nom_departement) == 0){
+<?php
+if($_POST['add_Employe']){
+    $NOM_FONCTION_SELECT=htmlspecialchars($_POST['NOM_FONCTION_SELECT']);
+    $NOM_DEPARTEMENT_SELECT=htmlspecialchars($_POST['NOM_DEPARTEMENT_SELECT']);
+    $NO=htmlspecialchars($_POST['NO']);
+    $NOM=htmlspecialchars($_POST['NOM']);// -- Add employe -- //
+    if(strlen($NOM) != 0 and $NO != NULL) {
+        if ($NOM_DEPARTEMENT_SELECT == 'DEFAULT') {
+            if ($NOM_FONCTION_SELECT == 'DEFAULT') {
+                //PAS DEPARTEMENT ET PAS FONCTION
+                $bdd->query("INSERT INTO `EMPLOYE`(`NO`, `NOM`, `NOM_DEPARTEMENT`, `NOM_FONCTION`) VALUES ($NO,'$NOM',NULL,NULL)");
+            } else {
+                //PAS DEPARTEMENT MAIS FONCTION
+                $bdd->query("INSERT INTO `EMPLOYE`(`NO`, `NOM`, `NOM_DEPARTEMENT`, `NOM_FONCTION`) VALUES ($NO,'$NOM',NULL,'$NOM_FONCTION_SELECT')");
+            }
+        } else {
+            if ($NOM_FONCTION_SELECT == 'DEFAULT') {
+                //DEPARTEMENT MAIS PAS FONCTION
+                $bdd->query("INSERT INTO `EMPLOYE`(`NO`, `NOM`, `NOM_DEPARTEMENT`, `NOM_FONCTION`) VALUES ($NO,'$NOM','$NOM_DEPARTEMENT_SELECT',NULL)");
+            } else {
+                //DEPARTEMENT ET FONCTION
+                $bdd->query("INSERT INTO `EMPLOYE`(`NO`, `NOM`, `NOM_DEPARTEMENT`, `NOM_FONCTION`) VALUES ($NO,'$NOM','$NOM_DEPARTEMENT_SELECT','$NOM_FONCTION_SELECT')");
+            }
+        }
+    }
+}
 
-
-                                echo "<option value=".$name." style='background-color : #f00020 '>".$name."</option>";
-                            }
-                        }
-                        ?>
-                        <input type="submit" name="insert_Employe" class="myput" value="Select Employe"/>
-                </form>
-
-                <?PHP
+?>
 
 
-                if($_POST['insert_Employe']){
 
-                $EMPLOYE=htmlspecialchars($_POST['EMPLOYE']);
-                $NO=htmlspecialchars($_POST['NO']);
-                $NOM=htmlspecialchars($_POST['NOM']);
-                $NOM_DEPARTEMENT=htmlspecialchars($_POST['NOM_DEPARTEMENT']);
-                $NOM_FONCTION=htmlspecialchars($_POST['NOM_FONCTION']);
-                $check=true;
 
-                if($check){ ?>
 
-                <br>
-                <hr>
-                <h1>COMPLETE EMPLOYE</h1>
-                <form action="<?PHP echo $PHP_SELF; ?>" method="post">
-                    <input placeholder="NOM_DEPARTEMENT"type="text" name="NOM_DEPARTEMENT"><br>
-                    <input placeholder="NOM_FONCTION"type="text" name="NOM_FONCTION"><br>
 
-                    <?PHP
-                    echo "<input type = 'hidden' name = 'EMPLOYE' value = '$EMPLOYE'/>";
-                    ?>
-                    <input type="submit" name="modify_Employe" class="myput" value="Modify_Employe"/>
-                </form>
 
+<!-- QUESTION 3: COMPLETE NOT COMPLETED EMPLOYE-->
+<br>
+<hr>
+<h1>Compléter les informations d'un employé</h1>
+<form action="<?PHP echo $PHP_SELF; ?>" method="post">
+    <select name="EMPLOYE" required>
+        <option value="">--Employé à compléter--</option>
+        <?PHP
+        $NOM_DEPARTEMENT=htmlspecialchars($_POST['NOM_DEPARTEMENT']);
+        $NOM_FONCTION=htmlspecialchars($_POST['NOM_FONCTION']);
+
+        $fetch_employe = $bdd->query("SELECT NOM FROM EMPLOYE WHERE NOM_DEPARTEMENT is null or NOM_FONCTION is null");
+
+        while ($row = $fetch_employe->fetch()) {
+
+            $name = $row['NOM'];
+
+            echo "<option value=".$name." style='background-color : #f00000 '>".$name."</option>";
+
+        }
+        ?>
+        <input type="submit" name="insert_Employe" class="myput" value="Choisir"/>
+</form>
 
 <?PHP
-    }
+
+
+if($_POST['insert_Employe']){
+    $EMPLOYE=htmlspecialchars($_POST['EMPLOYE']);
+
+    $nom_dep=$bdd->query("SELECT NOM_DEPARTEMENT FROM EMPLOYE WHERE NOM ='$EMPLOYE'");
+    $col = $nom_dep->fetch();
+    $nom_dep_fetch = $col['NOM_DEPARTEMENT'];
+
+    $nom_fonct=$bdd->query("SELECT NOM_FONCTION FROM EMPLOYE WHERE NOM ='$EMPLOYE'");
+    $col = $nom_fonct->fetch();
+    $nom_fonct_fetch = $col['NOM_FONCTION'];
+
+
+    ?>
+    <br>
+    <hr>
+    <h1>Information à compléter</h1>
+    <form action="<?PHP echo $PHP_SELF; ?>" method="post">
+        <?PHP
+        if($nom_dep_fetch == NULL){
+        ?>
+
+            <select name="NOM_DEPARTEMENT">
+                <option value="DEFAULT">--Choisir un département--</option>
+
+                <?PHP
+                $fetch_departement2 = $bdd->query("SELECT NOM FROM DEPARTEMENT");
+
+                while ($row = $fetch_departement2->fetch()) {
+
+                    $name = $row['NOM'];
+                    echo "<option value=".$name. " style='background-color : #00f034 '>" .$name."</option>";
+                }
+                echo "<input type = 'hidden' name = 'EMPLOYE' value = '$EMPLOYE'/>";
+
+        }
+
+        if($nom_fonct_fetch == NULL){
+                ?>
+
+                <select name="NOM_FONCTION">
+                    <option value="DEFAULT">--Choisir une fonction--</option>
+
+                    <?PHP
+                    $fetch_fonction2 = $bdd->query("SELECT NOM FROM FONCTION");
+
+                    while ($row = $fetch_fonction2->fetch()) {
+
+                        $name = $row['NOM'];
+                        echo "<option value=".$name. " style='background-color : #00f034 '>" .$name."</option>";
+                    }
+                    echo "<input type = 'hidden' name = 'EMPLOYE' value = '$EMPLOYE'/>";
+
+                    }
+
+                ?>
+                <input type="submit" name="modify_Employe" class="myput" value="Compléter"/>
+        </form>
+    <?PHP
+
+
 }
 
 if($_POST['modify_Employe']){
     $EMPLOYE=htmlspecialchars($_POST['EMPLOYE']);
-    $NO=htmlspecialchars($_POST['NO']);
-    $NOM=htmlspecialchars($_POST['NOM']);
     $NOM_DEPARTEMENT=htmlspecialchars($_POST['NOM_DEPARTEMENT']);
     $NOM_FONCTION=htmlspecialchars($_POST['NOM_FONCTION']);
-    $check=true;
-
-    if($check){
-        // -- Add employe -- //
-        if(strlen($NOM_FONCTION) !=0){
-            $request="UPDATE `EMPLOYE` SET `NOM_FONCTION` = '$NOM_FONCTION' WHERE `NOM` = '$EMPLOYE'";
-            $bdd->query($request);
-        }
-
-        if(strlen($NOM_DEPARTEMENT) !=0) {
-
-            $request="UPDATE `EMPLOYE` SET `NOM_DEPARTEMENT` = '$NOM_DEPARTEMENT' WHERE `NOM` = '$EMPLOYE'";
-            $bdd->query($request);
-        }
+    if($NOM_DEPARTEMENT != 'DEFAULT' ) {
+        $request = "UPDATE `EMPLOYE` SET `NOM_DEPARTEMENT` = '$NOM_DEPARTEMENT' WHERE `NOM` = '$EMPLOYE'";
+        $bdd->query($request);
     }
-
-
+    if($NOM_FONCTION != 'DEFAULT' ) {
+        $request = "UPDATE `EMPLOYE` SET `NOM_FONCTION` = '$NOM_FONCTION' WHERE `NOM` = '$EMPLOYE'";
+        $bdd->query($request);
+    }
 }
+
+
+
 
 ?>
 
@@ -182,6 +228,7 @@ if($_POST['modify_Employe']){
     <form action="<?PHP echo $PHP_SELF; ?>" method="post">
     <select name="COLUMN">
         <option value="NO">NO</option>
+        <option value="NOM">NOM</option>
         <option value="NOM_DEPARTEMENT">NOM_DEPARTEMENT</option>
         <option value="NOM_FONCTION">NOM_FONCTION</option>
         <option value="SUM">SUM</option>
@@ -189,66 +236,42 @@ if($_POST['modify_Employe']){
         <option value="MIN">MIN</option>
         <option value="MAX">MAX</option>
         <option value="NUMBER_OF_PROJECT">NUMBER_OF_PROJECT</option>
-    <input type="submit" name="Display" class="myput" value="fetch"/>
+    </select>
+    <select name="TRI">
+        <option value="ASC">ASC</option>
+        <option value="DESC">DESC</option>
+    <input type="submit" name="Display" class="myput" value="Trier"/>
 </form>
 
 <?PHP
+
     if($_POST['Display']){
-        $COLUMN=htmlspecialchars($_POST['COLUMN']);  ////////////////////////////////////
-        $check=true;
-        if($check){
+        $COLUMN=htmlspecialchars($_POST['COLUMN']);
+        $TRI=htmlspecialchars($_POST['TRI']);
 
-            $request = "SELECT * FROM `EMPLOYE` ORDER BY `EMPLOYE`.`$COLUMN` ASC";
-            $req = $bdd->query($request);
-            echo '<h2>List of EMPLOYE in database</h2>';
-            echo "<table class=\"datatable\">
-            <tr><th>NO</th><th>NOM</th><th>NOM_DEPARTEMENT</th><th>NOM_FONCTION</th><th>SUM</th><th>AVG</th><th>MIN</th><th>MAX</th><th>NUMBER_OF_PROJECT</th></tr>";
-            while ($tuple = $req->fetch()) {
-                echo "<tr> <td>".$tuple['NO']." </td><td>".$tuple['NOM']." </td><td>".$tuple['NOM_DEPARTEMENT']."</td><td> ".$tuple['NOM_FONCTION']." </td><td> ".$tuple['SUM']." </td><td> ".$tuple['AVG']." </td><td> ".$tuple['MIN']." </td><td> ".$tuple['MAX']." </td><td> ".$tuple['NUMBER_OF_PROJECT']." </td></tr> ";
-            }
+        $request = "SELECT EMPLOYE.NO, EMPLOYE.NOM,EMPLOYE.NOM_DEPARTEMENT,EMPLOYE.NOM_FONCTION, SUM(TACHE.NOMBRE_HEURES) as SUM, MAX(TACHE.NOMBRE_HEURES) as MAX, MIN(TACHE.NOMBRE_HEURES) as MIN, AVG(TACHE.NOMBRE_HEURES) as AVG, COUNT(DISTINCT(PROJET)) as NUMBER_OF_PROJECT
+                FROM EMPLOYE LEFT JOIN TACHE ON EMPLOYE.NO = TACHE.EMPLOYE
+                GROUP BY EMPLOYE.NO ORDER BY `$COLUMN` $TRI";
+        $req = $bdd->query($request);
+        echo '<h2>Liste des employés</h2>';
+        echo "<table class=\"datatable\">
+        <tr><th>NO</th><th>NOM</th><th>NOM_DEPARTEMENT</th><th>NOM_FONCTION</th><th>SUM</th><th>AVG</th><th>MIN</th><th>MAX</th><th>NUMBER_OF_PROJECT</th></tr>";
+        while ($tuple = $req->fetch()) {
+            echo "<tr> <td>".$tuple['NO']." </td><td>".$tuple['NOM']." </td><td>".$tuple['NOM_DEPARTEMENT']."</td><td> ".$tuple['NOM_FONCTION']." </td><td> ".$tuple['SUM']." </td><td> ".$tuple['AVG']." </td><td> ".$tuple['MIN']." </td><td> ".$tuple['MAX']." </td><td> ".$tuple['NUMBER_OF_PROJECT']." </td></tr> ";
         }
+    }else{
+        $COLUMN=htmlspecialchars($_POST['COLUMN']);
+        $TRI=htmlspecialchars($_POST['TRI']);
 
-    }
-    else{
-        $request = "ALTER TABLE EMPLOYE ADD COLUMN SUM INT AFTER NOM_FONCTION";
-            $bdd->query($request);
-            $request = "ALTER TABLE EMPLOYE ADD COLUMN AVG INT AFTER SUM";
-            $bdd->query($request);
-            $request = "ALTER TABLE EMPLOYE ADD COLUMN MIN INT AFTER AVG";
-            $bdd->query($request);
-            $request = "ALTER TABLE EMPLOYE ADD COLUMN MAX INT AFTER MIN";
-            $bdd->query($request);
-
-            $request = "ALTER TABLE EMPLOYE ADD COLUMN NUMBER_OF_PROJECT INT AFTER MAX";
-            $bdd->query($request);
-
-            $fetch_NO = $bdd->query("SELECT NO FROM EMPLOYE");
-            while ($row = $fetch_NO->fetch()) {
-               $NUM = $row['NO'];
-               $request = "UPDATE EMPLOYE SET SUM = (SELECT SUM(NOMBRE_HEURES) FROM TACHE where EMPLOYE = $NUM) where NO = '$NUM'";
-               $bdd->query($request);
-
-               $request = "UPDATE EMPLOYE SET AVG = (SELECT AVG(NOMBRE_HEURES) FROM TACHE where EMPLOYE = $NUM) where NO = '$NUM'";
-               $bdd->query($request);
-
-               $request = "UPDATE EMPLOYE SET MIN = (SELECT MIN(NOMBRE_HEURES) FROM TACHE where EMPLOYE = $NUM) where NO = '$NUM'";
-               $bdd->query($request);
-
-               $request = "UPDATE EMPLOYE SET MAX = (SELECT MAX(NOMBRE_HEURES) FROM TACHE where EMPLOYE = $NUM) where NO = '$NUM'";
-               $bdd->query($request);
-
-               $request = "UPDATE EMPLOYE SET NUMBER_OF_PROJECT = (SELECT COUNT(DISTINCT(PROJET)) FROM TACHE where EMPLOYE = '$NUM') where NO = '$NUM'";
-               $bdd->query($request);
-            }
-
-            $request = "SELECT * FROM EMPLOYE";
-            $req = $bdd->query($request);
-            echo '<h2>List of EMPLOYE in database</h2>';
-            echo "<table class=\"datatable\">
-            <tr><th>NO</th><th>NOM</th><th>NOM_DEPARTEMENT</th><th>NOM_FONCTION</th><th>SUM</th><th>AVG</th><th>MIN</th><th>MAX</th><th>NUMBER_OF_PROJECT</th></tr>";
-            while ($tuple = $req->fetch()) {
-                echo "<tr> <td>".$tuple['NO']." </td><td>".$tuple['NOM']." </td><td>".$tuple['NOM_DEPARTEMENT']."</td><td> ".$tuple['NOM_FONCTION']." </td><td> ".$tuple['SUM']." </td><td> ".$tuple['AVG']." </td><td> ".$tuple['MIN']." </td><td> ".$tuple['MAX']." </td><td> ".$tuple['NUMBER_OF_PROJECT']." </td></tr> ";
-            }
-            echo "</table>";
+        $request = "SELECT EMPLOYE.NO, EMPLOYE.NOM,EMPLOYE.NOM_DEPARTEMENT,EMPLOYE.NOM_FONCTION, SUM(TACHE.NOMBRE_HEURES) as SUM, MAX(TACHE.NOMBRE_HEURES) as MAX, MIN(TACHE.NOMBRE_HEURES) as MIN, AVG(TACHE.NOMBRE_HEURES) as AVG, COUNT(DISTINCT(PROJET)) as NUMBER_OF_PROJECT
+                FROM EMPLOYE LEFT JOIN TACHE ON EMPLOYE.NO = TACHE.EMPLOYE
+                GROUP BY EMPLOYE.NO ORDER BY `NO` ASC";
+        $req = $bdd->query($request);
+        echo '<h2>Liste des employés</h2>';
+        echo "<table class=\"datatable\">
+        <tr><th>NO</th><th>NOM</th><th>NOM_DEPARTEMENT</th><th>NOM_FONCTION</th><th>SUM</th><th>AVG</th><th>MIN</th><th>MAX</th><th>NUMBER_OF_PROJECT</th></tr>";
+        while ($tuple = $req->fetch()) {
+            echo "<tr> <td>".$tuple['NO']." </td><td>".$tuple['NOM']." </td><td>".$tuple['NOM_DEPARTEMENT']."</td><td> ".$tuple['NOM_FONCTION']." </td><td> ".$tuple['SUM']." </td><td> ".$tuple['AVG']." </td><td> ".$tuple['MIN']." </td><td> ".$tuple['MAX']." </td><td> ".$tuple['NUMBER_OF_PROJECT']." </td></tr> ";
+        }
     }
 ?>
