@@ -214,5 +214,3 @@ $request = "SELECT PROJET.NOM,
 
     }
 echo "</table>";
-
-?>
