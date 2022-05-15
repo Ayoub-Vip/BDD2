@@ -1,3 +1,4 @@
+ <!--  Formulaire pour rechercher un rapport (question 1)-->
  <h1>Rechercher un rapport</h1>
  <form action="<?PHP echo $PHP_SELF; ?>" method="post">
     <input placeholder="EMPLOYE" type="number" name="EMPLOYE"><br>
@@ -7,6 +8,7 @@
  </form>
 
 
+<!-- Affichage des rapports en contraignant des paramètres (question 1)-->
 <?PHP
 
 if($_POST['display_rapport']){

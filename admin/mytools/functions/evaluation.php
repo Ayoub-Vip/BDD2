@@ -1,3 +1,4 @@
+<!--  Formulaire pour rechercher une évalutaion (question 1)-->
 <h1>Rechercher évaluation</h1>
 <form action="<?PHP echo $PHP_SELF; ?>" method="post">
     <input placeholder="PROJET" type="text" name="PROJET"><br>
@@ -7,9 +8,8 @@
     <input type="submit" name="display_evaluation" class="myput" value="Rechercher"/>
 </form>
 
-
+<!-- Affichage des évaluations en contraignant des paramètres (question 1)-->
 <?PHP
-
 if($_POST['display_evaluation']){
     $PROJET=htmlspecialchars($_POST['PROJET']);
     $EXPERT=htmlspecialchars($_POST['EXPERT']);
