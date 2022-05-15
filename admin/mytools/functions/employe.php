@@ -58,7 +58,7 @@ if($_POST['display_EMPLOYE']){
         while ($row = $fetch_departement->fetch()) {
 
             $name = $row['NOM'];
-            echo "<option value=".$name. " style='background-color : #00f034 '>" .$name."</option>";
+            echo "<option value=".$name. " style='background-color :red; '>" .$name."</option>";
 
         }
         ?>
@@ -86,6 +86,10 @@ if($_POST['add_Employe']){
     $NOM_DEPARTEMENT_SELECT=htmlspecialchars($_POST['NOM_DEPARTEMENT_SELECT']);
     $NO=htmlspecialchars($_POST['NO']);
     $NOM=htmlspecialchars($_POST['NOM']);// -- Add employe -- //
+    if ($bdd->query("SELECT NO FROM EMPLOYE WHERE NO = $NO")->fetch()) {
+        echo "<div class=\"wan\">Attention! cette employe existe deja dans la base de donnees</div>";
+    }else{
+        
     if(strlen($NOM) != 0 and $NO != NULL) {
         if ($NOM_DEPARTEMENT_SELECT == 'DEFAULT') {
             if ($NOM_FONCTION_SELECT == 'DEFAULT') {
@@ -104,6 +108,7 @@ if($_POST['add_Employe']){
                 $bdd->query("INSERT INTO `EMPLOYE`(`NO`, `NOM`, `NOM_DEPARTEMENT`, `NOM_FONCTION`) VALUES ($NO,'$NOM','$NOM_DEPARTEMENT_SELECT','$NOM_FONCTION_SELECT')");
             }
         }
+    }
     }
 }
 
