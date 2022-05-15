@@ -180,7 +180,7 @@ if($_POST['DISPLAY_TASK']){
 <?PHP
 
 echo "<table class=\"datatable\">
-<tr><th>NOM</th><th>DEPARTEMENT</th><th>DATE_DEBUT</th><th>CHEF</th><th>BUDGET</th><th>COUT</th><th>DATE_FIN</th><th>STATUT</th><th>HEURES_PASSES</th></tr>";
+<tr><th>NOM</th><th>DEPARTEMENT</th><th>DATE_DEBUT</th><th>CHEF</th><th>BUDGET</th><th>COUT</th><th>DATE_FIN</th><th>STATUT</th><th>HEURES_PASSES</th><th>+tache</th><th>cloturer</th></tr>";
 
 $request = "SELECT PROJET.NOM,
                     PROJET.DEPARTEMENT,
@@ -209,7 +209,12 @@ $request = "SELECT PROJET.NOM,
                 $STATUT = '<i style=\"color=orange\">terminé</i>';
             }
         }
-         echo "<tr><td>".$tuple['NOM']." </td><td>".$tuple['DEPARTEMENT']." </td><td>".$tuple['DATE_DEBUT']."</td><td> ".$tuple['CHEF']." </td><td> ".$tuple['BUDGET']." </td><td> ".$tuple['COUT']." </td><td> ".$tuple['DATE_FIN']." </td><td> ".$STATUT." </td><td> ".$tuple['HEURES_PASSES']." </td></tr> ";
+        $NOM = $tuple['NOM'];
+         echo "<tr><td>".$NOM." </td><td>".$tuple['DEPARTEMENT']." </td><td>".$tuple['DATE_DEBUT']."</td><td> ".$tuple['CHEF']." </td><td> ".$tuple['BUDGET']." </td><td> ".$tuple['COUT']." </td><td> ".$tuple['DATE_FIN']." </td><td> ".$STATUT." </td><td>".$tuple['HEURES_PASSES']." </td> 
+         <td><a class=\"botton-controle\" style='wrap:no-wrap' href=\"admin_page.php?table=tache&projet=".$NOM." \">ajoute</a></td>
+         <td><a class=\"botton-controle\" href=\"admin_page.php?table=tache&projet=".$NOM." \">cloturer</a></td>
+</tr> ";
+
 
     }
 echo "</table>";
