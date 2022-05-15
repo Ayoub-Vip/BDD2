@@ -92,7 +92,7 @@
 		include_once("mytools/logout.php");
 		break;
 			default:
-				include_once("mytools/projet.php");
+				include_once("mytools/functions/projet.php");
 				
 }
 	}
