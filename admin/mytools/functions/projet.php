@@ -180,55 +180,46 @@ if($_POST['DISPLAY_TASK']){
 <!-- Tableau de bord -->
 <h1>Tableau de bord</h1>
 <?PHP
-            $request = "ALTER TABLE PROJET ADD COLUMN STATUT VARCHAR(30) AFTER DATE_FIN";
-            $bdd->query($request);
-            $request = "ALTER TABLE PROJET ADD COLUMN HEURES_PASSES INT AFTER STATUT";
-            $bdd->query($request);
 
-            $fetch_NOM = $bdd->query("SELECT NOM FROM PROJET");
-            while ($row = $fetch_NOM->fetch()) {
-               $NUM = $row['NOM'];
+$display_projet = "SELECT * FROM PROJET ORDER BY DATE_DEBUT,NOM ASC";
+$reqprojet = $bdd->query($display_projet);
 
-               $request = "SELECT BUDGET FROM PROJET WHERE NOM = '$NUM'";
-               $result = $bdd->query($request);
-               $bud = $result->fetch();
-               $BUDGET = $bud['BUDGET'];
+while ($tuple = $reqprojet->fetch()) {
+    $STATUT = "";
+    $HEURES_PASSES;
+    $COUT_ACTUEL;
 
-               $request = "SELECT DATE_FIN FROM PROJET WHERE NOM = '$NUM'";
-               $result = $bdd->query($request);
-               $dat = $result->fetch();
-               $DATE_FIN = $dat['DATE_FIN'];
-               if(is_null($BUDGET)){
-                    $STATUT = 'en attente';
-               }else{
-                    if(is_null($DATE_FIN)){
-                        $req = $bdd->query("UPDATE PROJET SET COUT =(SELECT sum(NOMBRE_HEURES * TAUX_HORAIRE) AS COUT_TACHE
-                            FROM TACHE, FONCTION, EMPLOYE
-                            WHERE TACHE.PROJET LIKE UPPER('$NUM') AND EMPLOYE.NO = TACHE.EMPLOYE AND EMPLOYE.NOM_FONCTION = FONCTION.NOM) WHERE NOM = '$NUM'");
-                        $bdd->query($req);
-                        $STATUT = 'en cours de route';
-                     }
-                     else{
-                        $STATUT = 'terminé';
-                     }
-               };
+    $sommeHeures = "SELECT SUM(NOMBRE_HEURES) FROM TACHE WHERE TACHE.PROJET = ".$tuple['NOM']." ";
 
-               $request = "UPDATE PROJET SET STATUT = '$STATUT ' where NOM = '$NUM'";
-               $bdd->query($request);
+    $HEURES_PASSES = $bdd->query($sommeHeures);
 
-               $request = "UPDATE PROJET SET HEURES_PASSES = (SELECT SUM(NOMBRE_HEURES) FROM TACHE WHERE PROJET = '$NUM') where NOM = '$NUM'";
-               $bdd->query($request);
+    if($tuple['COUT']){
+        $COUT_ACTUEL = $tuple['COUT'];
+    }else{
+        $NOM = $tuple['NOM'];
+        // $requet_cout = "SELECT sum(NOMBRE_HEURES * TAUX_HORAIRE) AS COUT_TACHE
+        //                             FROM TACHE, FONCTION, EMPLOYE
+        //                             WHERE TACHE.PROJET = '$NOM'
+        //                             AND EMPLOYE.NO = TACHE.EMPLOYE AND EMPLOYE.NOM_FONCTION = FONCTION.NOM";
+        // $COUT_ACTUEL = $bdd->query($requet_cout);
+    }
+
+    if(is_null($BUDGET)){
+
+        $STATUT = '<i style=\"color=red\">en attente</i>';
+    }else{
+
+        if(is_null($DATE_FIN)){                
+            $STATUT = '<i style=\"color=orange\">en cours de route</i>';
+        }
+        else{
+            $STATUT = 'terminé<i style=\"color=green\">terminé</i>';
+        }
+    };
 
 
-            }
-$request = "SELECT * FROM PROJET ORDER BY DATE_DEBUT,NOM ASC";
-$req = $bdd->query($request);
-echo "<table class=\"datatable\">
-<tr><th>NOM</th><th>DEPARTEMENT</th><th>DATE_DEBUT</th><th>CHEF</th><th>BUDGET</th><th>COUT</th><th>DATE_FIN</th><th>STATUT</th><th>HEURES_PASSES</th></tr>";
-while ($tuple = $req->fetch()) {
-          echo "<tr> <td>".$tuple['NOM']." </td><td>".$tuple['DEPARTEMENT']." </td><td>".$tuple['DATE_DEBUT']."</td><td> ".$tuple['CHEF']." </td><td> ".$tuple['BUDGET']." </td><td> ".$tuple['COUT']." </td><td> ".$tuple['DATE_FIN']." </td><td> ".$tuple['STATUT']." </td><td> ".$tuple['HEURES_PASSES']." </td></tr> ";
+
+    echo "<tr> <td>".$tuple['NOM']." </td><td>".$tuple['DEPARTEMENT']." </td><td>".$tuple['DATE_DEBUT']."</td><td> ".$tuple['CHEF']." </td><td> ".$tuple['BUDGET']." </td><td> ".$COUT_ACTUEL." </td><td> ".$tuple['DATE_FIN']." </td><td> ".$STATUT." </td><td> ".$HEURES_PASSES]." </td></tr> ":
 }
 echo "</table>";
 ?>
-
-
