@@ -24,7 +24,7 @@ if($_POST['display_PROJET']){
     $COUT=htmlspecialchars($_POST['COUT']);
     $DATE_FIN=htmlspecialchars($_POST['DATE_FIN']);
 
-        $request = "SELECT * FROM PROJET WHERE NOM LIKE UPPER('%$NOM%') AND DEPARTEMENT LIKE UPPER('%$DEPARTEMENT%')";
+        $request = "SELECT * FROM PROJET WHERE UPPER(NOM) LIKE UPPER('%$NOM%') AND UPPER(DEPARTEMENT) LIKE UPPER('%$DEPARTEMENT%')";
         if(strlen($CHEF) != 0)
             $request .= " AND CHEF = $CHEF";
         if(strlen($BUDGET) != 0)
@@ -37,7 +37,6 @@ if($_POST['display_PROJET']){
             $request .= " AND DATE_FIN = '$DATE_FIN'";
 
         $req = $bdd->query($request);
-        echo $request;
         echo '<h2>Liste des projets</h2>';
         echo "<table class=\"datatable\">
         <tr id=\"headtable\"><th>NOM</th><th>DEPARTEMENT</th><th>DATE_DEBUT</th><th>CHEF</th><th>BUDGET</th><th>COUT</th><th>DATE_FIN</th></tr>";
@@ -196,7 +195,7 @@ $request = "SELECT PROJET.NOM,
                     (SELECT SUM(NOMBRE_HEURES) FROM TACHE WHERE TACHE.PROJET = PROJET.NOM ) as HEURES_PASSES
             FROM PROJET LEFT JOIN TACHE ON PROJET.NOM = TACHE.PROJET
             WHERE 1
-            GROUP BY PROJET.NOM";
+            GROUP BY PROJET.NOM ORDER BY PROJET.DATE_DEBUT ASC,PROJET.NOM ASC";
 
     $reqprojet = $bdd->query($request);
     while ($tuple = $reqprojet->fetch()) {
@@ -214,3 +213,5 @@ $request = "SELECT PROJET.NOM,
 
     }
 echo "</table>";
+
+?>

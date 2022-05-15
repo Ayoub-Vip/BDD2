@@ -14,15 +14,12 @@ if($_POST['display_EMPLOYE']){
     $NOM=htmlspecialchars($_POST['NOM']);
     $NOM_DEPARTEMENT=htmlspecialchars($_POST['NOM_DEPARTEMENT']);
     $NOM_FONCTION=htmlspecialchars($_POST['NOM_FONCTION']);
-    $check=true;
-
-    if($check){
-        $request = "SELECT * FROM EMPLOYE WHERE NOM LIKE UPPER('%$NOM%')";
+        $request = "SELECT * FROM EMPLOYE WHERE UPPER(NOM) LIKE UPPER('%$NOM%')";
         if(strlen($NOM_DEPARTEMENT) > 0){
-            $request .= "AND NOM_DEPARTEMENT LIKE UPPER('%$NOM_DEPARTEMENT%')";
+            $request .= "AND UPPER(NOM_DEPARTEMENT) LIKE UPPER('%$NOM_DEPARTEMENT%')";
         }
         if(strlen($NOM_FONCTION) > 0){
-            $request .= "AND NOM_FONCTION LIKE UPPER('%$NOM_FONCTION%')";
+            $request .= "AND UPPER(NOM_FONCTION) LIKE UPPER('%$NOM_FONCTION%')";
         }
         if(strlen($NO) != 0)
             $request .= " AND NO = $NO";
@@ -36,9 +33,6 @@ if($_POST['display_EMPLOYE']){
             echo "<tr> <td>".$tuple['NO']." </td><td>".$tuple['NOM']." </td><td>".$tuple['NOM_DEPARTEMENT']."</td><td> ".$tuple['NOM_FONCTION']." </td></tr> ";
         }
         echo "</table>";
-
-
-    }
 }
 ?>
 
@@ -136,11 +130,10 @@ if($_POST['add_Employe']){
 
         }
         ?>
-        <input type="submit" name="insert_Employe" class="myput" value="Choisir"/>
+    <input type="submit" name="insert_Employe" class="myput" value="Choisir"/>
 </form>
 
 <?PHP
-
 
 if($_POST['insert_Employe']){
     $EMPLOYE=htmlspecialchars($_POST['EMPLOYE']);
@@ -154,7 +147,7 @@ if($_POST['insert_Employe']){
     $nom_fonct_fetch = $col['NOM_FONCTION'];
 
 
-    ?>
+?>
     <br>
     <hr>
     <h1>Information à compléter</h1>
@@ -217,10 +210,6 @@ if($_POST['modify_Employe']){
         $bdd->query($request);
     }
 }
-
-
-
-
 ?>
 
 
@@ -244,7 +233,6 @@ if($_POST['modify_Employe']){
 </form>
 
 <?PHP
-
     if($_POST['Display']){
         $COLUMN=htmlspecialchars($_POST['COLUMN']);
         $TRI=htmlspecialchars($_POST['TRI']);
