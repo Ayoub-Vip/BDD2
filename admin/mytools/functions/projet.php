@@ -184,6 +184,7 @@ $request = "SELECT PROJET.NOM,
             GROUP BY PROJET.NOM ORDER BY PROJET.DATE_DEBUT ASC,PROJET.NOM ASC";
 
     $reqprojet = $bdd->query($request);
+
     while ($tuple = $reqprojet->fetch()) {
         if(is_null($tuple['BUDGET'])){
             $STATUT = '<i style=\"color=red\">en attente</i>';
@@ -196,22 +197,18 @@ $request = "SELECT PROJET.NOM,
             }
         }
         $NOM = $tuple['NOM'];
-         echo "<tr><td>".$NOM." </td><td>".$tuple['DEPARTEMENT']." </td><td>".$tuple['DATE_DEBUT']."</td><td> ".$tuple['CHEF']." </td><td> ".$tuple['BUDGET']." </td><td> ".$tuple['COUT']." </td><td> ".$tuple['DATE_FIN']." </td><td> ".$STATUT." </td><td>".$tuple['HEURES_PASSES']." </td> 
+         echo "<tr><td>".$NOM." </td><td>".$tuple['DEPARTEMENT']." </td><td>".$tuple['DATE_DEBUT']."</td><td> ".$tuple['CHEF']." </td><td> ".$tuple['BUDGET']." </td><td> ".$tuple['COUT']." </td><td> ".$tuple['DATE_FIN']." </td><td> ".$STATUT." </td><td>".$tuple['HEURES_PASSES']." </td>
          <td>";
          if ($STATUT != '<i style=\"color=orange\">terminé</i>') {
-             echo "<a class=\"botton-controle\" style='wrap:no-wrap' href=\"admin_page.php?table=tache&projet=".$NOM." \">ajoute</a>";
+             echo "<a class=\"botton-controle\" style='wrap:no-wrap' href=\"admin_page.php?table=tache&projet=".$NOM." \">Ajouter</a>";
          }
          echo "</td><td>";
          if ($STATUT != '<i style=\"color=orange\">terminé</i>') {
-             echo "<a class=\"botton-controle\" href=\"admin_page.php?table=tache&projet=".$NOM." \">cloturer</a>";
+             echo "<a class=\"botton-controle\" href=\"admin_page.php?table=tache&projet=".$NOM." \">Cloturer</a>";
          }
-             
-             
-         }
-         echo "</td></tr>";
-
-
     }
+
+   echo "</td></tr>";
 echo "</table>";
 
 ?>

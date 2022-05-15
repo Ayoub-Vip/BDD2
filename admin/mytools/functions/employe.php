@@ -54,7 +54,7 @@ if($_POST['display_EMPLOYE']){
         while ($row = $fetch_departement->fetch()) {
 
             $name = $row['NOM'];
-            echo "<option value=".$name. " style='background-color :red; '>" .$name."</option>";
+            echo "<option value=".$name. " style='background-color : #00f034 '>" .$name."</option>";
 
         }
         ?>
@@ -83,10 +83,6 @@ if($_POST['add_Employe']){
     $NOM_DEPARTEMENT_SELECT=htmlspecialchars($_POST['NOM_DEPARTEMENT_SELECT']);
     $NO=htmlspecialchars($_POST['NO']);
     $NOM=htmlspecialchars($_POST['NOM']);// -- Add employe -- //
-    if ($bdd->query("SELECT NO FROM EMPLOYE WHERE NO = $NO")->fetch()) {
-        echo "<div class=\"wan\">Attention! cette employe existe deja dans la base de donnees</div>";
-    }else{
-        
     if(strlen($NOM) != 0 and $NO != NULL) {
         if ($NOM_DEPARTEMENT_SELECT == 'DEFAULT') {
             if ($NOM_FONCTION_SELECT == 'DEFAULT') {
@@ -105,7 +101,6 @@ if($_POST['add_Employe']){
                 $bdd->query("INSERT INTO `EMPLOYE`(`NO`, `NOM`, `NOM_DEPARTEMENT`, `NOM_FONCTION`) VALUES ($NO,'$NOM','$NOM_DEPARTEMENT_SELECT','$NOM_FONCTION_SELECT')");
             }
         }
-    }
     }
 }
 
@@ -148,6 +143,7 @@ if($_POST['insert_Employe']){
     $nom_fonct_fetch = $col['NOM_FONCTION'];
 
 ?>
+
     <br>
     <hr>
     <h1>Information à compléter</h1>
@@ -205,8 +201,53 @@ if($_POST['modify_Employe']){
 }
 ?>
 
+ <!-- Recherche d'employé ayant participé à tous les projets (question 5)-->
+<br>
+<hr>
+<h1>RECHERCHE EMPLOYE AYANT PARTICIPE A TOUS LES PROJETS</h1>
+<form action="<?PHP echo $PHP_SELF; ?>" method="post">
+    <input type="submit" name="Display_all_projects_employe" class="myput" value="Rechercher"/>
+</form>
+
+<?PHP
+
+if($_POST['Display_all_projects_employe']){
+
+        $request = "SELECT INTER.NOM, INTER.FONCTION, INTER.CHEF_DE, INTER.EMPLOYE_POUR, INTER.EXPERT_POUR FROM(
+
+        SELECT (EMPLOYE.NOM_FONCTION) AS FONCTION,
+                EMPLOYE.NOM,
+             (((SELECT COUNT(DISTINCT PROJET.NOM) GROUP BY EMPLOYE.NO)+ (SELECT COUNT(DISTINCT TACHE.PROJET) GROUP BY EMPLOYE.NO)+ (SELECT COUNT(DISTINCT EVALUATION.PROJET) GROUP BY EMPLOYE.NO)))
+                AS  NBR_PROJET_DIST,
+                GROUP_CONCAT(DISTINCT PROJET.NOM SEPARATOR ' et ') AS CHEF_DE,
+                GROUP_CONCAT(DISTINCT TACHE.PROJET SEPARATOR ' et ') AS EMPLOYE_POUR,
+                GROUP_CONCAT(DISTINCT EVALUATION.PROJET SEPARATOR ' et ') AS EXPERT_POUR
+        FROM EMPLOYE LEFT JOIN TACHE ON EMPLOYE.NO = TACHE.EMPLOYE
+                     LEFT JOIN PROJET ON EMPLOYE.NO = PROJET.CHEF
+                     LEFT JOIN EVALUATION ON EMPLOYE.NO = EVALUATION.EXPERT
+        WHERE 1
+        GROUP BY EMPLOYE.NO
+        ) AS INTER
+        WHERE (SELECT COUNT(DISTINCT PROJET.NOM) FROM PROJET) = NBR_PROJET_DIST";
+
+        $req = $bdd->query($request);
+
+        echo '<h2>Voici les employés qui ont participé à tous les projets</h2>';
+        echo "<table class=\"datatable\">
+        <tr><th>NOM</th><th>FONCTION</th><th>CHEF_DE</th><th>EMPLOYE_POUR</th><th>EXPERT_POUR</th></tr>";
+
+        while ($tuple = $req->fetch()) {
+
+            echo "<tr> <td>".$tuple['NOM']." </td><td>".$tuple['FONCTION']." </td><td>".$tuple['CHEF_DE']."</td><td> ".$tuple['EMPLOYE_POUR']."</td><td> ".$tuple['EXPERT_POUR']." </td></tr> ";
+        }
+        echo "</table>";
+
+}
+?>
 
 <!-- Option de tri du tableau de bord des employés (question 7)-->
+<br>
+<hr>
 <h1>Tableau de bord</h1>
     <form action="<?PHP echo $PHP_SELF; ?>" method="post">
     <select name="COLUMN">
@@ -259,3 +300,4 @@ if($_POST['modify_Employe']){
         }
     }
 ?>
+
