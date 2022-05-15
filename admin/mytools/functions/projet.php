@@ -176,7 +176,6 @@ if($_POST['DISPLAY_TASK']){
 
 ?>
 
-
 <!-- Tableau de bord -->
 <h1>Tableau de bord</h1>
 <?PHP
@@ -184,42 +183,43 @@ if($_POST['DISPLAY_TASK']){
 $display_projet = "SELECT * FROM PROJET ORDER BY DATE_DEBUT,NOM ASC";
 $reqprojet = $bdd->query($display_projet);
 
+echo "<table class=\"datatable\">
+<tr><th>NOM</th><th>DEPARTEMENT</th><th>DATE_DEBUT</th><th>CHEF</th><th>BUDGET</th><th>COUT</th><th>DATE_FIN</th><th>STATUT</th><th>HEURES_PASSES</th></tr>";
 while ($tuple = $reqprojet->fetch()) {
     $STATUT = "";
     $HEURES_PASSES;
     $COUT_ACTUEL;
 
-    $sommeHeures = "SELECT SUM(NOMBRE_HEURES) FROM TACHE WHERE TACHE.PROJET = ".$tuple['NOM']." ";
+    $request = "SELECT SUM(NOMBRE_HEURES) FROM TACHE WHERE TACHE.PROJET = '".$tuple['NOM']."' ";
 
-    $HEURES_PASSES = $bdd->query($sommeHeures);
+    $HEURES_PASSES = $bdd->query($request)->fetch()[0];
 
     if($tuple['COUT']){
-        $COUT_ACTUEL = $tuple['COUT'];
+       $COUT_ACTUEL = $tuple['COUT'];
     }else{
         $NOM = $tuple['NOM'];
         $requet_cout = "SELECT sum(NOMBRE_HEURES * TAUX_HORAIRE) AS COUT_TACHE
-                                    FROM TACHE, FONCTION, EMPLOYE
+                                     FROM TACHE, FONCTION, EMPLOYE
                                     WHERE TACHE.PROJET = '$NOM'
                                     AND EMPLOYE.NO = TACHE.EMPLOYE AND EMPLOYE.NOM_FONCTION = FONCTION.NOM";
-        $COUT_ACTUEL = $bdd->query($requet_cout);
+        $COUT_ACTUEL = $bdd->query($requet_cout)->fetch()[0];
     }
 
-    if(is_null($BUDGET)){
-
+    if(is_null($tuple['BUDGET'])){
         $STATUT = '<i style=\"color=red\">en attente</i>';
     }else{
-
-        if(is_null($DATE_FIN)){                
+        if(is_null($tuple['DATE_FIN'])){
             $STATUT = '<i style=\"color=orange\">en cours de route</i>';
         }
         else{
-            $STATUT = 'terminé<i style=\"color=green\">terminé</i>';
+            $STATUT = '<i style=\"color=orange\">terminé</i>';
         }
     };
 
 
+  //  echo("<tr><td> ".$tuple['DATE_FIN']." </td></tr>");
+    echo "<tr><td>".$tuple['NOM']." </td><td>".$tuple['DEPARTEMENT']." </td><td>".$tuple['DATE_DEBUT']."</td><td> ".$tuple['CHEF']." </td><td> ".$tuple['BUDGET']." </td><td> ".$COUT_ACTUEL." </td><td> ".$tuple['DATE_FIN']." </td><td> ".$STATUT." </td><td> ".$HEURES_PASSES." </td></tr> ";
 
-    echo "<tr> <td>".$tuple['NOM']." </td><td>".$tuple['DEPARTEMENT']." </td><td>".$tuple['DATE_DEBUT']."</td><td> ".$tuple['CHEF']." </td><td> ".$tuple['BUDGET']." </td><td> ".$COUT_ACTUEL." </td><td> ".$tuple['DATE_FIN']." </td><td> ".$STATUT." </td><td> ".$HEURES_PASSES]." </td></tr> ":
 }
 echo "</table>";
 ?>
