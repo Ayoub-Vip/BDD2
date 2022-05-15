@@ -1,21 +1,19 @@
- <h1>FETCH DATA</h1>
+ <h1>Rechercher des tâches</h1>
  <form action="<?PHP echo $PHP_SELF; ?>" method="post">
     <input placeholder="EMPLOYE" type="number" name="EMPLOYE"><br>
     <input placeholder="PROJET" type="text" name="PROJET"><br>
     <input placeholder="NOMBRE_HEURES"type="number" name="NOMBRE_HEURES"><br>
-    <input type="submit" name="display_TACHE" class="myput" value="fetch"/>
+    <input type="submit" name="display_TACHE" class="myput" value="Rechercher"/>
  </form>
 
 <?PHP
 
 if($_POST['display_TACHE']){
-    $EMPLOYE=htmlspecialchars($_POST['EMPLOYE']);  ////////////////////////////////////
+    $EMPLOYE=htmlspecialchars($_POST['EMPLOYE']);
     $PROJET=htmlspecialchars($_POST['PROJET']);
     $NOMBRE_HEURES=htmlspecialchars($_POST['NOMBRE_HEURES']);
-    $check=true;
 
-    if($check){
-        $request = "SELECT * FROM TACHE WHERE PROJET LIKE UPPER('%$PROJET%')";
+        $request = "SELECT * FROM TACHE WHERE UPPER(PROJET) LIKE UPPER('%$PROJET%')";
         if(strlen($EMPLOYE) != 0)
             $request .= " AND EMPLOYE = $EMPLOYE";
         if(strlen($NOMBRE_HEURES) != 0)
@@ -26,25 +24,20 @@ if($_POST['display_TACHE']){
         echo "<table class=\"datatable\">
         <tr><th>EMPLOYE</th><th>PROJET</th><th>NOMBRE_HEURES</th></tr>";
         while ($tuple = $req->fetch()) {
-            // code...
             echo "<tr> <td>".$tuple['EMPLOYE']." </td><td>".$tuple['PROJET']." </td><td>".$tuple['NOMBRE_HEURES']."</td></tr> ";
         }
         echo "</table>";
 
-
-    }
 }
 ?>
 
-
 <br>
 <hr>
-<h1>INSERT Project</h1>
+<h1>Ajouter des tâches sur un projet</h1>
 <form action="<?PHP echo $PHP_SELF; ?>" method="post">
     <select name="PROJET" required>
-        <option value="">--Please choose an exiting PROJECT--</option>
+        <option value="">--Choisissez un projet--</option>
             <?PHP
-
                 $fetch_projet = $bdd->query("SELECT * FROM PROJET");
 
                 while ($row = $fetch_projet->fetch()) {
@@ -55,7 +48,6 @@ if($_POST['display_TACHE']){
                     $fetch_date_fin = $bdd->query($request);
                     $col = $fetch_date_fin->fetch();
                     $date_fin = $col['DATE_FIN'];
-
 
                     $request = "SELECT BUDGET FROM PROJET where NOM = '$name'";
                     $fetch_budget = $bdd->query($request);
@@ -84,27 +76,26 @@ if($_POST['display_TACHE']){
                     }
                 }
             ?>
-    <input type="submit" name="insert_Projet" class="myput" value="Select Project"/>
+    <input type="submit" name="insert_Projet" class="myput" value="Choisir"/>
 </form>
 
 <?PHP
 
 if($_POST['insert_Projet']){
     $PROJET=htmlspecialchars($_POST['PROJET']);
-    $check=true;
 
     $request = "SELECT DATE_FIN FROM PROJET where NOM = '$PROJET'";
     $fetch_PROJET = $bdd->query($request);
     $col = $fetch_PROJET->fetch();
     $date_fin = $col['DATE_FIN'];
 
-    if($check and strlen($date_fin)==0){ ?>
+    if(strlen($date_fin)==0){ ?>
         <br>
         <hr>
-        <h1>INSERT EMPLOYE</h1>
+        <h1>Rajouter des tâches à un employé déjà présent sur le projet</h1>
         <form action="<?PHP echo $PHP_SELF; ?>" method="post">
             <select name="EMPLOYE" required>
-                <option value="">--Please choose an exiting EMPLOYEE--</option>
+                <option value="">--Choissisez un employé-</option>
             <?PHP
                 $request = "SELECT EMPLOYE FROM TACHE where PROJET = '$PROJET'";
                 $fetch_EMPLOYE = $bdd->query($request);
@@ -116,15 +107,15 @@ if($_POST['insert_Projet']){
                 echo "<input type = 'hidden' name = 'PROJET' value = '$PROJET'/>";
             ?>
             <input placeholder="NOMBRE_HEURES"type="number" name="NOMBRE_HEURES" required><br>
-            <input type="submit" name="insert_EMPLOYEE" class="myput" value="Select EMPLOYEE et NOMBRE_HEURES"/>
+            <input type="submit" name="insert_EMPLOYEE" class="myput" value="Choisir employé et nombre d'heure"/>
         </form>
 
         <br>
         <hr>
-        <h1>INSERT NEW EMPLOYE</h1>
+        <h1>Ajouter des tâches sur le projet à un nouvel employé</h1>
         <form action="<?PHP echo $PHP_SELF; ?>" method="post">
             <select name="EMPLOYE" required>
-                <option value="">--Please choose an exiting EMPLOYEE--</option>
+                <option value="">--Choissisez un employé--</option>
             <?PHP
 
                 $request = "SELECT NO FROM EMPLOYE where NO NOT IN (SELECT EMPLOYE FROM TACHE where PROJET = '$PROJET')";
@@ -137,20 +128,20 @@ if($_POST['insert_Projet']){
                 echo "<input type = 'hidden' name = 'PROJET' value = '$PROJET'/>";
             ?>
             <input placeholder="NOMBRE_HEURES"type="number" name="NOMBRE_HEURES" required><br>
-            <input type="submit" name="insert_NEW_EMPLOYEE" class="myput" value="Select EMPLOYEE et NOMBRE_HEURES"/>
+            <input type="submit" name="insert_NEW_EMPLOYEE" class="myput" value="Choisir employé et nombre d'heure"/>
         </form>
 
 
         <br>
         <hr>
-        <h1>Cloture Project</h1>
+        <h1>Cloturer un projet</h1>
         <form action="<?PHP echo $PHP_SELF; ?>" method="post">
             <input placeholder="DATE_FIN"type="date" name="DATE_FIN" required><br>
             <?PHP
             echo "<input type = 'hidden' name = 'PROJET' value = '$PROJET'/>";
             ?>
              <select name="EVALUATION">
-                <option value="">--Please choose an EVALUATION--</option>
+                <option value="">--Choissisez une évaluation--</option>
             <?PHP
                 $request = "SELECT DISTINCT(AVIS) FROM EVALUATION";
                 $fetch_NUMBER = $bdd->query($request);
@@ -162,7 +153,7 @@ if($_POST['insert_Projet']){
             ?>
             <input placeholder="COMMENTAIRES"type="text" name="COMMENTAIRES"><br>
             <select name="EXPERT">
-                <option value="">--Please choose an EXPERT--</option>
+                <option value="">--Choissisez un expert--</option>
                 <?PHP
                     $request = "SELECT NO FROM EMPLOYE";
                     $fetch_NUMBER = $bdd->query($request);
@@ -173,14 +164,14 @@ if($_POST['insert_Projet']){
                     }
                 ?>
 
-            <input type="submit" name="End_Project" class="myput" value="End_Project"/>
+            <input type="submit" name="End_Project" class="myput" value="Finnaliser"/>
         </form>
         <?PHP
     }else{
         $request = "SELECT * FROM PROJET WHERE NOM LIKE UPPER('%$PROJET%')";
         $req = $bdd->query($request);
 
-        echo '<h2>Project list</h2>';
+        echo '<h2>Liste des projets</h2>';
         echo "<table class=\"datatable\" >
         <tr><th>NOM</th><th>DEPARTEMENT</th><th>DATE_DEBUT</th><th>CHEF</th><th>BUDGET</th><th>COUT</th><th>DATE_FIN</th></tr>";
         while ($tuple = $req->fetch()) {
@@ -188,7 +179,6 @@ if($_POST['insert_Projet']){
             echo "<tr> <td>".$tuple['NOM']." </td><td>".$tuple['DEPARTEMENT']." </td><td>".$tuple['DATE_DEBUT']."</td><td>".$tuple['CHEF']."</td><td>".$tuple['BUDGET']."</td><td>".$tuple['COUT']."</td><td>".$tuple['DATE_FIN']."</td></tr> ";
         }
         echo "</table>";
-
     }
 }
 ?>
@@ -209,26 +199,17 @@ if($_POST['insert_EMPLOYEE']){
         $bdd->query($request);
     }
 }
-?>
-
-<?PHP
 
 if($_POST['insert_NEW_EMPLOYEE']){
     $PROJET=htmlspecialchars($_POST['PROJET']);
     $NOMBRE_HEURES=htmlspecialchars($_POST['NOMBRE_HEURES']);
     $EMPLOYE=htmlspecialchars($_POST['EMPLOYE']);
     $check=true;
-
     if($check){
         $request = "INSERT INTO TACHE(EMPLOYE, NOMBRE_HEURES, PROJET) VALUES ($EMPLOYE, $NOMBRE_HEURES,'$PROJET')";
         $req = $bdd->query($request);
     }
-
 }
-?>
-
-
-<?PHP
 
 if($_POST['End_Project']){
     $DATE_FIN=htmlspecialchars($_POST['DATE_FIN']);

@@ -1,36 +1,30 @@
- <h1>FETCH DATA</h1>
+ <h1>Rechercher un rapport</h1>
  <form action="<?PHP echo $PHP_SELF; ?>" method="post">
     <input placeholder="EMPLOYE" type="number" name="EMPLOYE"><br>
     <input placeholder="PROJET" type="text" name="PROJET"><br>
     <input placeholder="TITRE" type="TEXT" name="TITRE" title="DATE_DEBUT">
-    <input type="submit" name="display_rapport" class="myput" value="fetch"/>
+    <input type="submit" name="display_rapport" class="myput" value="Rechercher"/>
  </form>
 
 
 <?PHP
 
 if($_POST['display_rapport']){
-    $EMPLOYE=htmlspecialchars($_POST['EMPLOYE']);  ////////////////////////////////////
+    $EMPLOYE=htmlspecialchars($_POST['EMPLOYE']);
     $PROJET=htmlspecialchars($_POST['PROJET']);
     $TITRE=htmlspecialchars($_POST['TITRE']);
-    $check=true;
 
-    if($check){
-        $request = "SELECT * FROM RAPPORT WHERE PROJET LIKE UPPER('%$PROJET%') AND TITRE LIKE UPPER('%$TITRE%')";
+        $request = "SELECT * FROM RAPPORT WHERE UPPER(PROJET) LIKE UPPER('%$PROJET%') AND UPPER(TITRE) LIKE UPPER('%$TITRE%')";
         if(strlen($EMPLOYE) != 0)
             $request .= " AND EMPLOYE = $EMPLOYE";
         $req = $bdd->query($request);
 
-        echo '<h2>List of RAPPORT in database</h2>';
+        echo '<h2>Liste des rapports</h2>';
         echo "<table class=\"datatable\">
-        <tr><th>EMPLOYE</th><th>PROJET</th><th>TITRE</th></tr>";
+        <tr id=\"headtable\"><th>EMPLOYE</th><th>PROJET</th><th>TITRE</th></tr>";
         while ($tuple = $req->fetch()) {
-            // code...
-            echo "<tr> <td>".$tuple['EMPLOYE']." </td><td>".$tuple['PROJET']." </td><td>".$tuple['TITRE']." </td>/tr> ";
+            echo "<tr><td>".$tuple['EMPLOYE']." </td><td>".$tuple['PROJET']." </td><td>".$tuple['TITRE']." </td>/tr> ";
         }
         echo "</table>";
-
-
-    }
 }
 ?>
