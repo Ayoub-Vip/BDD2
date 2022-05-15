@@ -33,59 +33,14 @@ if($_POST['display_TACHE']){
 }
 ?>
 
- <!--  Formulaire pour ajouter des taches sur un projet(question 4)-->
-<br>
-<hr>
-<h1>Ajouter des tâches sur un projet</h1>
-<form action="<?PHP echo $PHP_SELF; ?>" method="post">
-    <select name="PROJET" required>
-        <option value="">--Choisissez un projet--</option>
-            <?PHP
-                $fetch_projet = $bdd->query("SELECT * FROM PROJET");
-
-                while ($row = $fetch_projet->fetch()) {
-
-                    $name = $row['NOM'];
-
-                    $request = "SELECT DATE_FIN FROM PROJET where NOM = '$name'";
-                    $fetch_date_fin = $bdd->query($request);
-                    $col = $fetch_date_fin->fetch();
-                    $date_fin = $col['DATE_FIN'];
-
-                    $request = "SELECT BUDGET FROM PROJET where NOM = '$name'";
-                    $fetch_budget = $bdd->query($request);
-                    $col = $fetch_budget->fetch();
-                    $budget = $col['BUDGET'];
-
-                    $request = "SELECT COUT FROM PROJET where NOM = '$name'";
-                    $fetch_COUT = $bdd->query($request);
-                    $col = $fetch_COUT->fetch();
-                    $COUT = $col['COUT'];
-                    echo($COUT);
-                    if(strlen($date_fin)> 0){
-                        if($COUT <= $budget){
-                            echo "<option value=".$name." style='background-color : #008000'>".$name."</option>";
-                        }
-                        else{
-                            if($COUT > 1.1 * $BUDGET){
-                                echo "<option value=".$name." style='background-color : #ff7f00'>".$name."</option>";
-                            }
-                            else{
-                                echo "<option value=".$name." style='background-color : #f00020 '>".$name."</option>";
-                            }
-                        }
-                    }else{
-                        echo "<option value=".$name.">".$name."</option>";
-                    }
-                }
-            ?>
-    <input type="submit" name="insert_Projet" class="myput" value="Choisir"/>
-</form>
-
  <!--  Ajout et affichage des taches pour un employé (question 4)-->
 <?PHP
-if($_POST['insert_Projet']){
+if($_POST['insert_Projet'] or $_GET['projet']) {
     $PROJET=htmlspecialchars($_POST['PROJET']);
+    if ($_GET['projet']) {
+        $PROJET=htmlspecialchars($_GET['projet']);
+    }
+
 
     $request = "SELECT DATE_FIN FROM PROJET where NOM = '$PROJET'";
     $fetch_PROJET = $bdd->query($request);
@@ -95,6 +50,7 @@ if($_POST['insert_Projet']){
     if(strlen($date_fin)==0){ ?>
         <br>
         <hr>
+        <h1>Projet Selectionne: <?PHP echo $PROJET; ?></h1>
         <h1>Rajouter des tâches à un employé déjà présent sur le projet</h1>
         <form action="<?PHP echo $PHP_SELF; ?>" method="post">
             <select name="EMPLOYE" required>
@@ -179,13 +135,86 @@ if($_POST['insert_Projet']){
         <tr><th>NOM</th><th>DEPARTEMENT</th><th>DATE_DEBUT</th><th>CHEF</th><th>BUDGET</th><th>COUT</th><th>DATE_FIN</th></tr>";
         while ($tuple = $req->fetch()) {
             // code...
-            echo "<tr> <td>".$tuple['NOM']." </td><td>".$tuple['DEPARTEMENT']." </td><td>".$tuple['DATE_DEBUT']."</td><td>".$tuple['CHEF']."</td><td>".$tuple['BUDGET']."</td><td>".$tuple['COUT']."</td><td>".$tuple['DATE_FIN']."</td></tr> ";
+            $COUT = $tuple['COUT'];
+            $BUDGET = $tuple['BUDGET'];
+            $color = "";
+            if(strlen($date_fin)> 0){
+                if($COUT <= $BUDGET){
+                    $color = "#008000";
+                }
+                else{
+                    if($COUT > 1.1 * $BUDGET){
+                        $color = "#ff7f00";
+                    }
+                    else{
+                        $color = "#f00020";
+                        }
+                }
+            }
+            echo "<tr style='background:".$color.";'> <td>".$tuple['NOM']." </td><td>".$tuple['DEPARTEMENT']." </td><td>".$tuple['DATE_DEBUT']."</td><td>".$tuple['CHEF']."</td><td>".$BUDGET."</td><td>".$COUT."</td><td>".$tuple['DATE_FIN']."</td></tr> ";
         }
         echo "</table>";
     }
 }
+else{
 ?>
 
+
+ <!--  Formulaire pour ajouter des taches sur un projet(question 4)-->
+<br>
+<hr>
+<h1>Ajouter des tâches sur un projet</h1>
+<form action="<?PHP echo $PHP_SELF; ?>" method="post">
+    <select name="PROJET" required>
+        <option value="">--Choisissez un projet--</option>
+            <?PHP
+                $fetch_projet = $bdd->query("SELECT * FROM PROJET");
+
+                while ($row = $fetch_projet->fetch()) {
+
+                    $name = $row['NOM'];
+
+                    $request = "SELECT DATE_FIN FROM PROJET where NOM = '$name'";
+                    $fetch_date_fin = $bdd->query($request);
+                    $col = $fetch_date_fin->fetch();
+                    $date_fin = $col['DATE_FIN'];
+
+                    $request = "SELECT BUDGET FROM PROJET where NOM = '$name'";
+                    $fetch_budget = $bdd->query($request);
+                    $col = $fetch_budget->fetch();
+                    $budget = $col['BUDGET'];
+
+                    $request = "SELECT COUT FROM PROJET where NOM = '$name'";
+                    $fetch_COUT = $bdd->query($request);
+                    $col = $fetch_COUT->fetch();
+                    $COUT = $col['COUT'];
+                    echo($COUT);
+                    if(strlen($date_fin)> 0){
+                        if($COUT <= $budget){
+                            echo "<option value=".$name." style='background-color : #008000'>".$name."</option>";
+                        }
+                        else{
+                            if($COUT > 1.1 * $BUDGET){
+                                echo "<option value=".$name." style='background-color : #ff7f00'>".$name."</option>";
+                            }
+                            else{
+                                echo "<option value=".$name." style='background-color : #f00020 '>".$name."</option>";
+                            }
+                        }
+                    }else{
+                        echo "<option value=".$name.">".$name."</option>";
+                    }
+                }
+            ?>
+    <input type="submit" name="insert_Projet" class="myput" value="Choisir"/>
+</form>
+
+
+
+<?php 
+
+}
+?>
  <!--  Mise à jour des taches et cloture du projet(question 4)-->
 <?PHP
 if($_POST['insert_EMPLOYEE']){

@@ -197,9 +197,18 @@ $request = "SELECT PROJET.NOM,
         }
         $NOM = $tuple['NOM'];
          echo "<tr><td>".$NOM." </td><td>".$tuple['DEPARTEMENT']." </td><td>".$tuple['DATE_DEBUT']."</td><td> ".$tuple['CHEF']." </td><td> ".$tuple['BUDGET']." </td><td> ".$tuple['COUT']." </td><td> ".$tuple['DATE_FIN']." </td><td> ".$STATUT." </td><td>".$tuple['HEURES_PASSES']." </td> 
-         <td><a class=\"botton-controle\" style='wrap:no-wrap' href=\"admin_page.php?table=tache&projet=".$NOM." \">ajoute</a></td>
-         <td><a class=\"botton-controle\" href=\"admin_page.php?table=tache&projet=".$NOM." \">cloturer</a></td>
-</tr> ";
+         <td>";
+         if ($STATUT != '<i style=\"color=orange\">terminé</i>') {
+             echo "<a class=\"botton-controle\" style='wrap:no-wrap' href=\"admin_page.php?table=tache&projet=".$NOM." \">ajoute</a>";
+         }
+         echo "</td><td>";
+         if ($STATUT != '<i style=\"color=orange\">terminé</i>') {
+             echo "<a class=\"botton-controle\" href=\"admin_page.php?table=tache&projet=".$NOM." \">cloturer</a>";
+         }
+             
+             
+         }
+         echo "</td></tr>";
 
 
     }
