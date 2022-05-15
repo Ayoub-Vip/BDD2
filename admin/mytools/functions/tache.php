@@ -134,7 +134,6 @@ if($_POST['insert_Projet'] or $_GET['projet']) {
         echo "<table class=\"datatable\" >
         <tr><th>NOM</th><th>DEPARTEMENT</th><th>DATE_DEBUT</th><th>CHEF</th><th>BUDGET</th><th>COUT</th><th>DATE_FIN</th></tr>";
         while ($tuple = $req->fetch()) {
-            // code...
             $COUT = $tuple['COUT'];
             $BUDGET = $tuple['BUDGET'];
             $color = "";
@@ -144,11 +143,11 @@ if($_POST['insert_Projet'] or $_GET['projet']) {
                 }
                 else{
                     if($COUT > 1.1 * $BUDGET){
-                        $color = "#ff7f00";
+                        $color = "#f00020";
                     }
                     else{
-                        $color = "#f00020";
-                        }
+                        $color = "#ff7f00";
+                    }
                 }
             }
             echo "<tr style='background:".$color.";'> <td>".$tuple['NOM']." </td><td>".$tuple['DEPARTEMENT']." </td><td>".$tuple['DATE_DEBUT']."</td><td>".$tuple['CHEF']."</td><td>".$BUDGET."</td><td>".$COUT."</td><td>".$tuple['DATE_FIN']."</td></tr> ";
@@ -163,84 +162,41 @@ else{
  <!--  Formulaire pour ajouter des taches sur un projet(question 4)-->
 <br>
 <hr>
-<h1>Cloturer ou Ajouter des tâches sur un projet</h1>
+<h1>Ajouter des tâches sur un projet</h1>
 <form action="<?PHP echo $PHP_SELF; ?>" method="post">
     <select name="PROJET" required>
         <option value="">--Choisissez un projet--</option>
             <?PHP
                 $fetch_projet = $bdd->query("SELECT * FROM PROJET");
-
                 while ($row = $fetch_projet->fetch()) {
-
                     $name = $row['NOM'];
-
-                    $request = "SELECT DATE_FIN FROM PROJET where NOM = '$name'";
-                    $fetch_date_fin = $bdd->query($request);
-                    $col = $fetch_date_fin->fetch();
-                    $date_fin = $col['DATE_FIN'];
-
-                    $request = "SELECT BUDGET FROM PROJET where NOM = '$name'";
-                    $fetch_budget = $bdd->query($request);
-                    $col = $fetch_budget->fetch();
-                    $budget = $col['BUDGET'];
-
-                    $request = "SELECT COUT FROM PROJET where NOM = '$name'";
-                    $fetch_COUT = $bdd->query($request);
-                    $col = $fetch_COUT->fetch();
-                    $COUT = $col['COUT'];
-                    echo($COUT);
-                    if(strlen($date_fin)> 0){
-                        if($COUT <= $budget){
-                            echo "<option value=".$name." style='background-color : #008000'>".$name."</option>";
-                        }
-                        else{
-                            if($COUT > 1.1 * $BUDGET){
-                                echo "<option value=".$name." style='background-color : #ff7f00'>".$name."</option>";
-                            }
-                            else{
-                                echo "<option value=".$name." style='background-color : #f00020 '>".$name."</option>";
-                            }
-                        }
-                    }else{
-                        echo "<option value=".$name.">".$name."</option>";
-                    }
+                    echo "<option value=".$name.">".$name."</option>";
                 }
             ?>
     <input type="submit" name="insert_Projet" class="myput" value="Choisir"/>
 </form>
-
-
-
 <?php
-
 }
 ?>
  <!--  Mise à jour des taches et cloture du projet(question 4)-->
 <?PHP
 if($_POST['insert_EMPLOYEE']){
     $NOMBRE_HEURES=htmlspecialchars($_POST['NOMBRE_HEURES']);
-    $EMPLOYE=htmlspecialchars($_POST['EXPERT']);
+    $EMPLOYE=htmlspecialchars($_POST['EMPLOYE']);
     $PROJET=htmlspecialchars($_POST['PROJET']);
-    $check=true;
 
-    if($check){
-        echo($NOMBRE_HEURES);
-        echo($PROJET);
-        $request = "UPDATE TACHE SET NOMBRE_HEURES = NOMBRE_HEURES + $NOMBRE_HEURES where PROJET = '$PROJET' AND EMPLOYE = '$EMPLOYE'";
-        echo($request);
+        $request = "UPDATE TACHE SET NOMBRE_HEURES = NOMBRE_HEURES + $NOMBRE_HEURES where PROJET = '$PROJET' AND EMPLOYE = $EMPLOYE";
         $bdd->query($request);
-    }
 }
 
 if($_POST['insert_NEW_EMPLOYEE']){
     $PROJET=htmlspecialchars($_POST['PROJET']);
     $NOMBRE_HEURES=htmlspecialchars($_POST['NOMBRE_HEURES']);
     $EMPLOYE=htmlspecialchars($_POST['EMPLOYE']);
-    $check=true;
-    if($check){
-        $request = "INSERT INTO TACHE(EMPLOYE, NOMBRE_HEURES, PROJET) VALUES ($EMPLOYE, $NOMBRE_HEURES,'$PROJET')";
-        $req = $bdd->query($request);
-    }
+
+    $request = "INSERT INTO TACHE(EMPLOYE, NOMBRE_HEURES, PROJET) VALUES ($EMPLOYE, $NOMBRE_HEURES,'$PROJET')";
+    $req = $bdd->query($request);
+
 }
 
 if($_POST['End_Project']){
@@ -249,15 +205,7 @@ if($_POST['End_Project']){
     $EMPLOYE=htmlspecialchars($_POST['EXPERT']);
     $EVALUATION=htmlspecialchars($_POST['EVALUATION']);
     $COMMENTAIRES=htmlspecialchars($_POST['COMMENTAIRES']);
-    $check=true;
 
-    if($DATE_FIN < $bdd->query("SELECT DATE_DEBUT FROM PROJET WHERE NOM = '$PROJET'")->fetch()[0]){
-        echo "Attention! la DATE_FIN < DATE_DEBUT";
-        exit(1);
-
-    }
-
-    if($check){
         if(strlen($EVALUATION) == 0 and $EMPLOYE == 0 and strlen($COMMENTAIRES) == 0){
             $request = "UPDATE PROJET  SET DATE_FIN = '$DATE_FIN' where NOM = '$PROJET'";
             $bdd->query($request);
@@ -269,6 +217,5 @@ if($_POST['End_Project']){
         }else{
             echo("N'oubliez pas de renseigner tous les champs");
         }
-    }
 }
 ?>
