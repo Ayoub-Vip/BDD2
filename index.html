@@ -6,26 +6,17 @@
     <link rel="stylesheet" href="style.css" type="text/css">
     <meta charset="utf-8"/>
 </head>
-<script>
-    .$('temp').on('click',Function(){
-                $(this).toggleClass('temp clicked');
-//    $(getElemetbyClassname("gall")).toggleClass('gall active');
-                };)
-    </script>
+
 
 <body>
 <nav>
 <div class="in-nav">
-<div class="navi n1"><img src="" width="45" height="45" /></div> 
+<div class="navi n1"><img src="images/Logofacsa.png" width="125" height="45" /></div> 
 <div class="navi n2">
 <a href="rating" title="Your rating">
 
 </a>
-<a href="contact">contact</a>
-<!-- <a href=""></a> -->
-<a href="book">book</a>
-<!-- <a href="book">blog</a> -->
-<!-- <a href="sign up">Sign up</a> -->
+
 <a href="admin/login.php">Login</a></div>
 </div>
 </nav>
@@ -43,153 +34,31 @@
 </div>
 
 </header>
-<!--wedding site //  site about friendship-->
-<!--mathers day - valentine's days - birthday's gifts -  chrismasss - wedding anniversary - smart gifts -->
-<section class="pricpal-product">
-    <div class="container-pro">
-        <div class="titles-pro">
-            <ul>
-                <li  href="javascript:void(0)" class="temp" onmouseover="openCity(event, &#39;friendship&#39;)"  id="defaultOpen">friendship</li>
-                <li href="javascript:void(0)" class="temp" onmouseover="openCity(event, &#39;mathers&#39;)">mathers day</li>
-                <li href="javascript:void(0)" class="temp" onmouseover="openCity(event, &#39;birthday&#39;)">birthday's gifts</li>
-                <li href="javascript:void(0)" class="temp" onmouseover="openCity(event, &#39;valentine&#39;)">valentine's days</li>
-                <li href="javascript:void(0)" class="temp" onmouseover="openCity(event, &#39;chrismasss&#39;)">chrismasss</li>
-                <li href="javascript:void(0)" class="temp" onmouseover="openCity(event, &#39;wedding&#39;)">wedding anniversary</li>
-                <li href="javascript:void(0)" class="temp" onmouseover="openCity(event, &#39;others&#39;)">others</li>
-                
-            </ul>
-        </div>
-        <div class="gallery-pro">
-            <div class="gall " id="friendship" style="display: block">
-               <div class="in-gall">
-                <div class="img-gall1"><img src="images/pexels-photo-753323.jpeg" alt=""></div>
-                <div class="img-gall2"><img src="images/model-1955528_1920.jpg" alt=""></div>
-                <div class="img-gall3"><img src="images/kaboompics_Autumn%20Details.jpg" alt=""></div>
-                <div class="img-gall3"><img src="images/pexels-photo-753554.jpeg" alt=""></div>
-               </div>
-            </div>
-            <div class="gall " id="mathers" style="display:none">
-               <div class="in-gall">
-                <div class="img-gall1"><a href="">VIEW MORE</a><a href=""><img src="images/O6LN3V0%20(Copier).jpg" alt=""></a></div>
-                <div class="img-gall2"><a href="">VIEW MORE</a><a href=""><img src="images/" alt=""></a></div>
-                <div class="img-gall3"><a href="">VIEW MORE</a><a href=""><img src="images/" alt=""></a></div>
-                </div>
-            </div>
-            <div class="gall " id="birthday" style="display:none">
-               <div class="in-gall">
-                <div class="img-gall1"><a href="">VIEW MORE</a><a href=""><img src="images/" alt=""></a></div>
-                <div class="img-gall2"><a href="">VIEW MORE</a><a href=""><img src="images/" alt=""></a></div>
-                <div class="img-gall3"><a href="">VIEW MORE</a><a href=""><img src="images/" alt=""></a></div>
-                </div>
-            </div>
-            <div class="gall " id="valentine" style="display:none">
-               <div class="in-gall">
-                <div class="img-gall1"><a href="">VIEW MORE</a><a href=""><img src="images/" alt=""></a></div>
-                <div class="img-gall2"><a href="">VIEW MORE</a><a href=""><img src="images/" alt=""></a></div>
-                <div class="img-gall3"><a href="">VIEW MORE</a><a href=""><img src="images/" alt=""></a></div>
-                </div>
-            </div>
-            <div class="gall " id="chrismasss" style="display:none">
-               <div class="in-gall">
-                <div class="img-gall1"><a href="">VIEW MORE</a><a href=""><img src="images/" alt=""></a></div>
-                <div class="img-gall2"><a href="">VIEW MORE</a><a href=""><img src="images/" alt=""></a></div>
-                <div class="img-gall3"><a href="">VIEW MORE</a><a href=""><img src="images/" alt=""></a></div>
-                </div>
-            </div>
-            <div class="gall " id="wedding" style="display:none">
-               <div class="in-gall">
-                <div class="img-gall1"><a href="">VIEW MORE</a><a href=""><img src="images/ODR9Y50%20(Copier).jpg" alt=""></a></div>
-                <div class="img-gall2"><a href="">VIEW MORE</a><a href=""><img src="images/" alt=""></a></div>
-                <div class="img-gall3"><a href="">VIEW MORE</a><a href=""><img src="images/" alt=""></a></div>
-                </div>
-            </div>
-            <div class="gall " id="others" style="display:none">
-               <div class="in-gall">
-                <div class="img-gall1"><a href="">VIEW MORE</a><a href=""><img src="images/" alt=""></a></div>
-                <div class="img-gall2"><a href="">VIEW MORE</a><a href=""><img src="images/" alt=""></a></div>
-                <div class="img-gall3"><a href="">VIEW MORE</a><a href=""><img src="images/" alt=""></a></div>
-                </div>
-            </div>
-        </div>
-        
-    </div>
-</section>
-        <script>
-function openCity(evt, cityName) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("gall");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-//        tabcontent[i].style= "";
-    }
-    tablinks = document.getElementsByClassName("temp");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" actived", "");
-    }
-    document.getElementById(cityName).style.display = "block";
-    evt.currentTarget.className += " actived";
-}
-
-// Get the element with id="defaultOpen" and click on it
-document.getElementById("defaultOpen").click();
-
-/*    const temp=document.querySelector('.temp');
-    const gall=document.querySelector('.gall');
-    temp.addEventListener('mousehover',()=> {
-        gall.classList.add('gall-active')
-    })
-    temp.addEventListener('mouseleave',()=> {
-        gall.classList.add('gall-active')
-    })*/
-    </script>
 
 
-
-<div style="display:none!important;">
-
-<!--    ///////////////////////////certificate image /////////////////////-->
-<div><div style="margin-left: auto;margin-right: auto;width: 90%;text-align: center;padding-top: 30px;padding-bottom: 30px;">
-   <div>d</div>
-    <div style="position: relative;padding-top: 31%;text-align: center;">
-        <img src="images/model-1955528_1920.jpg" alt="" class="dd-img">
-    </div>
-    <div>dd</div>
-</div>
-    </div>
+<div style="display:;">
 
 
 
 
+<br>
 <div class="art">
-<div class="fst-one"><a href="images/"><h2>Get advises from experts</h2><p>you never regreat when you ask a professional</p></a></div>
-<div> <a href="images/"><h2>how to make someone love you</h2><p>real question and real answer</p></a></div>
-<div> <a href="images/"><h2>Surprise your friends with unexpectional gift</h2><p>real question and real answer</p></a></div>
-<div> <a href="images/"><h2>is your personnality strong enough to do this </h2><p>real question and real answer</p></a></div>
-<div> <a href="images/"><h2>measure your popularty with this standard</h2><p>real question and real answer</p></a></div>
+<div class="fst-one"><a href="admin/admin_page.php?table=projet"><h2>PROJET</h2><p>NOM, DEPARTEMENT, DATE_DEBUT, CHEF, BUDGET, COUT, DATE_FIN</p></a></div>
+<div> <a href="admin/admin_page.php?table=employe"><h2>EMPLOYE</h2><p>NO, NOM, NOM_DEPARTEMENT, NOM_FONCTION</p></a></div>
+<div> <a href="admin/admin_page.php?table=departement"><h2>DEPARTEMENT</h2><p>NOM, BUDGET</p></a></div>
+<div> <a href=""><h2> FONCTION </h2><p>NO, NOM, NOM_DEPARTEMENT, NOM_FONCTION</p></a></div>
+<div> <a href="admin/admin_page.php?table=tache"><h2>TACHE</h2><p>EMPLOYE, PROJET, NOMBRE_HEURES</p></a></div>
 <!--<div> <h2>show you love and respect to your familly and friends</h2><p></p></div>-->
 </div>
 <!--////////////////////////////////////////////////////-->
-<div class="services"><h1><!--Develop your lifestyle and sociallife,-->browser our other services.</h1>
-   <h3><!--We have choosen the best way that come far from your lifestyle-->if you think your life will study you anything,</h3>
-    <div><img src="images/"/>advices for first meeting with boy/girl-friend from psycologie</div>
-    <div><img src="images/"/>smart gift for you mather boy/girl-friend or grandma/fa</div>
-    <div><img src="images/"/>surprise parent with gift from heart to heart</div>
-    <div><img src="images/"/>You have a constraint,you can meet girlfriend</div>
-</div>
 
-<div  class="story">
-   <img src="images/story" width="50%"/>
-    <video width="600" height="300" controls="1"><source type="mp4" src=""></video>
-    <h1>Explore the story of Bali</h1>
-    <p>bali is a average person as lot of us,<!--he can not communicate well with people,and--> preparing for first <span>meeting</span> with his girlfriend as soon.bali feel fear and concern.he dont know what he will do.</p><span>Meet bali!</span>
-</div>
 
 </div>
 
 <div class="bracket">
 &ldquo;
-One of the most beautiful qualities of true friendship is to understand and to be understood.     
-&rdquo;<br><i>Lucius Annaeus Seneca</i></div>
+One of the most beautiful sites in the World.     
+&rdquo;<br><i>Group26</i></div>
 
 
 <footer>
