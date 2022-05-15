@@ -215,6 +215,8 @@ if($_POST['insert_EMPLOYEE']){
 
 if($_POST['insert_NEW_EMPLOYEE']){
     $PROJET=htmlspecialchars($_POST['PROJET']);
+    $NOMBRE_HEURES=htmlspecialchars($_POST['NOMBRE_HEURES']);
+    $EMPLOYE=htmlspecialchars($_POST['EMPLOYE']);
     $check=true;
 
     if($check){
