@@ -52,7 +52,6 @@
 	<td><a href="admin_page.php?table=rapport" >rapport</a></td>
 	<td><a href="admin_page.php?table=evaluation" >evaluation</a></td>
 	<td><a href="admin_page.php?table=departement" >departement</a></td>
-	<td><a href="admin_page.php?table=users" >users</a></td>
 	<td><a href="admin_page.php?table=logout" >logout</a></td>
 	</tr>	
 </table>
@@ -85,8 +84,6 @@
 	case 'departement':
 		include_once("mytools/functions/departement.php");
 		break;
-	case 'users':
-		include_once("mytools/users.php");
 	case 'logout':
 		include_once("mytools/logout.php");
 		break;
