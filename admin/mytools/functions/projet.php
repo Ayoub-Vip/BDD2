@@ -12,8 +12,9 @@
     <input type="submit" name="display_PROJET" class="myput" value="Rechercher"/>
 </form>
 
-<?PHP
 
+<!--  Affichage des Projets-->
+<?PHP
 if($_POST['display_PROJET']){
     $NOM=htmlspecialchars($_POST['NOM']);
     $DEPARTEMENT=htmlspecialchars($_POST['DEPARTEMENT']);
@@ -36,9 +37,7 @@ if($_POST['display_PROJET']){
             $request .= " AND DATE_FIN = '$DATE_FIN'";
 
         $req = $bdd->query($request);
-
         echo $request;
-
         echo '<h2>Liste des projets</h2>';
         echo "<table class=\"datatable\">
         <tr id=\"headtable\"><th>NOM</th><th>DEPARTEMENT</th><th>DATE_DEBUT</th><th>CHEF</th><th>BUDGET</th><th>COUT</th><th>DATE_FIN</th></tr>";
@@ -51,7 +50,7 @@ if($_POST['display_PROJET']){
 ?>
 
 
-<!-- ADD PROJET  .?? ?-->
+<!-- Formulaire pour ajouter des Projets-->
 <br>
 <hr>
 <h1>Ajouter un projet</h1>
@@ -92,9 +91,8 @@ if($_POST['display_PROJET']){
 
 </form>
 
-<!-- RECUPERER LE CHEF DANS LA LISTE DEROULANTE -->
 
-
+<!-- Insère le nouveau projet dans la base de données-->
 <?PHP
 
 if($_POST['INSERT_PROJET']){
@@ -138,7 +136,7 @@ if($_POST['INSERT_PROJET']){
 
 
 
-
+<!-- Formulaire pour choisir les taches à afficher-->
 <br>
 <hr>
 <h1>Affichage des tâches sur un projet</h1>
@@ -158,8 +156,9 @@ if($_POST['INSERT_PROJET']){
 
 </form>
 
-<?PHP
 
+<!-- Affichage des taches -->
+<?PHP
 if($_POST['DISPLAY_TASK']){
     $NOM=htmlspecialchars($_POST['NOM']);
     $DEPARTEMENT=htmlspecialchars($_POST['COUT_TACHE']);
@@ -178,10 +177,9 @@ if($_POST['DISPLAY_TASK']){
 ?>
 
 
+<!-- Tableau de bord -->
 <h1>Tableau de bord</h1>
-
 <?PHP
-
             $request = "ALTER TABLE PROJET ADD COLUMN STATUT VARCHAR(30) AFTER DATE_FIN";
             $bdd->query($request);
             $request = "ALTER TABLE PROJET ADD COLUMN HEURES_PASSES INT AFTER STATUT";
@@ -223,8 +221,6 @@ if($_POST['DISPLAY_TASK']){
 
 
             }
-
-
 $request = "SELECT * FROM PROJET ORDER BY DATE_DEBUT,NOM ASC";
 $req = $bdd->query($request);
 echo "<table class=\"datatable\">
