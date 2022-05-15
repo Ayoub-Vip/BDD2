@@ -30,7 +30,7 @@ elseif($pass ="" || empty($pass)){
 }else{
 	    $user=htmlspecialchars($_POST['user']);
         $pass=htmlspecialchars($_POST['pass']);
-            //check database
+            //check database  
         
         try {
 				$connect=mysqli_connect("localhost","group26","YecEAVIQ6v","group26");
