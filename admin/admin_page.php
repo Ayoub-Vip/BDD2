@@ -1,6 +1,6 @@
 
 <?php session_start(); ?>
-<? 
+<?php
 if(!$_SESSION['checklog']){header("location:login.php");}
   elseif(!isset($_SESSION['username']) && !isset($_SESSION['password'])){
     header("location:login.php");
