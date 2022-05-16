@@ -45,11 +45,18 @@ if($_POST['display_fonction']){
     if($_POST['add_Fonction']){
         $NOM=htmlspecialchars($_POST['NOM']);
         $TAUX_HORAIRE=htmlspecialchars($_POST['TAUX_HORAIRE']);
-            if(strlen($NOM) != 0){
+
+        $query = $bdd->query("SELECT NOM FROM FONCTION WHERE NOM = '$NOM'");
+        $Name = $query->fetch();
+        if(!$Name["NOM"]){
+             if(strlen($NOM) != 0){
                 if($TAUX_HORAIRE != NULL){
                     $bdd->query("INSERT INTO `FONCTION`(`NOM`, `TAUX_HORAIRE`) VALUES ('$NOM',$TAUX_HORAIRE)");
                 }
             }
+        }else{
+            echo("Cette fonction existe déjà");
+        }
     }
 ?>
 
